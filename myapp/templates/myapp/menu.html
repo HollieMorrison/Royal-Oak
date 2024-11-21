@@ -1,0 +1,28 @@
+{% extends "myapp/partials/base.html" %} 
+
+{% block content %}
+    <h1>Welcome to the Menyu Page!</h1>
+    <p>This is a sample page rendered by Django.</p>
+
+    <div>
+        <h3> Menu </h3>
+        <ul>
+            {% for item in food_items %}
+                <li> {{ item.name }} - {{ item.price }}
+            {% endfor %}
+        <div id="btn"> click me </div>
+    </div>
+    <script> 
+            // binding click events to a div.
+            var element = document.getElementById('btn').addEventListener('click', function ( ) {
+                console.log('btn clicked')
+                // fetch request to our api. 
+                // fetch('/reservations')
+            });
+            console.log('heyy')
+    </script>
+{% endblock %}
+
+{% comment %} for ( var i = 0; i < items.length; i++ ) {
+    item[i]
+} {% endcomment %}
