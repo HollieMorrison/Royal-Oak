@@ -5,11 +5,20 @@
     <p>This is a sample page rendered by Django.</p>
 
     <div>
-        <h3> Menu </h3>
+
+        <h3> Lunch Menu </h3>
         <ul>
-            {% for item in food_items %}
+            {% for item in lunch %}
                 <li> {{ item.name }} - {{ item.price }}
             {% endfor %}
+        </ul>
+        <h3> Dinner Menu </h3>
+        <ul>
+            {% for item in dinner %}
+                <li> {{ item.name }} - {{ item.price }}
+            {% endfor %}
+        </ul>
+
         <div id="btn"> click me </div>
     </div>
     <script> 

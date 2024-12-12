@@ -38,20 +38,34 @@ covered so far...
 8. rendering a html file in a view. 
 9. using template portions
 10. loading data from the server into a html page.
+11. getting a database working and creating the models.
+  creating a superuser
+    - python manage.py createsuperuser 
+    - holli / 12345
 
-to do :
-  - understand how we connect template partials into a html file.
-  - how to header links understand the correct pathing using the url (plug / variable )
-  - how we create an array variable and pass it to the html file we are rendering.
-  - how to take that array in our html file and render as html using the for loop 
+  - setup a new table called Reservation in our schema in myapp/models.
+  - we made a migration of this database and migrated.
+      - python manage.py makemigrations
+      - python manage.py mirate
+  
+  - we then registred our Reservation table to the admin in admin.py 
+
+  - we navigated to the admin so that we could view our new Reservation table + add data to to it.
+
+  - fetching data from the Model within a view and passing that data to the html.
+
 
 whats left...
 
-3. getting a database working and creating the models.
+3. set up a form in a reservation html and send this data to our api using fetch or 
+   form posting.
+ 
 4. creating views that get, post, delete and update data in a db table.
 5. using our server api from our HTML pages.
 
 6. setting up auth and user + protected pages / views.
+
+7. status codes.
 
 db
    - we're already connected to a sqlite db ( relational ) if we want mongodb or mysql/postgres then we need to configure that.
@@ -61,3 +75,21 @@ db
 
   restarting the project packages
     - pipenv shell 
+
+  
+  to do :
+  - understand how we connect template partials into a html file.
+  - how to header links understand the correct pathing using the url (plug / variable )
+  - how we create an array variable and pass it to the html file we are rendering.
+  - how to take that array in our html file and render as html using the for loop 
+
+
+
+
+---------
+day
+    20 tables
+
+        
+
+-------------
