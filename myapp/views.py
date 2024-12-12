@@ -2,7 +2,10 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.views import View
 from .models import Reservation, Menu
+from django.contrib.auth.models import User
 from datetime import datetime, timedelta
+
+from django.contrib import messages
 
 # Create your views here.
 
@@ -78,3 +81,18 @@ class About ( View ) :
     
 # views that just return data.
 
+def register( request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        email = request.POST.get('email')
+
+        # we would want to check that a username or email does not already exist in the user db..
+        if User.objects.filter( username=username ).exists():
+            messages.error( request, 'Username already exists')
+            return redirect('register')
+        user = User.objects.create( username=username, password=password, email=email )
+        messages.success( request , 'Registration was successful')
+        return redirect('register')
+    else:
+        return render( request , 'myapp/auth/register.html')

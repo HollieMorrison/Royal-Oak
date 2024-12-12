@@ -5,25 +5,24 @@
     <div>
 
         <form
-         action="{% url 'reservations' %}" 
+         action="{% url 'register' %}" 
          method="post"> 
          {% csrf_token %} <!-- Include CSRF token for security -->
-          <label for="name">Name:</label> 
-          <input type="text" id="name" name="name" required>
+          <label for="username"> username:</label> 
+          <input type="text" id="username" name="username" required>
           <br> 
-          <label for="date">Date:</label> 
-          <input type="date" id="date" name="date" required>
+          <label for="password"> Password :</label> 
+          <input type="password" id="password" name="password" required>
           <br> 
-          <label for="time">Time:</label>
-          
-          {% for time in intervals %}
-                <li> {{ time }} </li>
-          {% endfor %}
-          <br> 
-          <label for="party_size">Party Size:</label> 
-          <input type="number" id="party_size" name="party_size" required>
+          <label for="email"> email:</label> 
+          <input type="email" id="email" name="email" required>
           <br> 
           <button type="submit">Submit</button> 
         </form>
+
+        {% for message in messages %}
+                <p> {{ message }}
+        {% endfor %}
+
     </div>
 {% endblock %}
