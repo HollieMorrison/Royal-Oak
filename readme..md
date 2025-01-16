@@ -84,12 +84,46 @@ db
   - how to take that array in our html file and render as html using the for loop 
 
 
+--------------
+ reservations
+--------------
+id 1 | table 6 | 2pm 
+id 2 | table 4 | 2pm 
+id 3 | ( 4.30pm , table of 6 )
+      - check bookings for tables that match ( id 1 ) 
+      - time selected exceeds current booking + seat time ( 2 hours ).
+        (once you've selected your party size  , that does the searching - it finds that you can book anytime from 4pm )
+          4pm, 4.15pm, 4.30pm etc ... until next is there.. ( window prev booking ( book time + seat time - next booking ( book time - seat time ) )
 
 
----------
-day
-    20 tables
+--------------
 
-        
+Global reservations
+Day reservation
+
+model.
+Tables
+  table a ( 6 seats )
+  table b ( 4 seats )
+
+when you make a booking,
+  assign booking to table ( many-many relationship )
+
+reservations a needs a status
+  status ( awaiting , cancelled?, active , finished. )
+
+
+create a view.
+  function that is a yes/no. ask if there's table space available.
+    x tables 
+      label
+    x reservations 
+  we figure out what table names are left. And then check the table size and party requirements match ( highchair and table size )
+
+
 
 -------------
+
+We have a virtual environment linked to this project using pipenv. so the env has all of the packages we need for the project (django )
+manage.py is pipenv which allows us to run the commannds needed to interact.
+

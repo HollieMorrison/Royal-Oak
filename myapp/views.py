@@ -4,7 +4,6 @@ from django.views import View
 from .models import Reservation, Menu
 from django.contrib.auth.models import User
 from datetime import datetime, timedelta
-
 from django.contrib import messages
 
 # Create your views here.
@@ -19,6 +18,7 @@ class Home ( View ) :
 def Reservations_bookings ( request ):
     # retrieve information sent by the client and do something with that.
     # user signing in sends their login username and password.
+    # figure out the available timmes
     date = request.GET.get('date')
     reservations = Reservation.objects.filter(date='2024-12-05').values('time')
     print( reservations )
@@ -80,7 +80,15 @@ class About ( View ) :
         return render(request , 'myapp/about.html')
     
 # views that just return data.
-
+def login_view ( request ):
+    if  request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        print( username, password )
+        return redirect('loginview')
+    else:
+        return render( request , 'myapp/auth/login.html' )
+    
 def register( request):
     if request.method == 'POST':
         username = request.POST.get('username')

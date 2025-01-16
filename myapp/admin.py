@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Reservation, Menu
+from .models import Reservation, Menu, Table
 
 # Register your models here.
 
@@ -11,3 +11,7 @@ class ReservationAdmin(admin.ModelAdmin):
 class MenuAdmin(admin.ModelAdmin):
   list_display = ('name', 'price', 'type')
 
+
+@admin.register(Table)
+class TableAdmin( admin.ModelAdmin):
+  list_display = ( 'table_number' , 'capacity' , 'location')
