@@ -5,7 +5,7 @@ from .models import Reservation, Menu, Table
 
 @admin.register(Reservation)
 class ReservationAdmin(admin.ModelAdmin):
-  list_display = ('name', 'date', 'time', 'party_size')
+  list_display = ('name', 'date', 'time', 'party_size', 'table')
 
 @admin.register(Menu)
 class MenuAdmin(admin.ModelAdmin):

@@ -16,13 +16,28 @@
           <br> 
           <label for="time">Time:</label>
           
-          {% for time in intervals %}
-                <li> {{ time }} </li>
-          {% endfor %}
+          <select name="time">
+            {% for time_option in time_options %}
+              <option value="{{ time_option }}">{{ time_option }}</option>
+            {% endfor %}
+          </select>
+
           <br> 
+
+          <label for="children"> How many children in your party? </label>
+          <input type="number" name="children" />
+
+          <br>
           <label for="party_size">Party Size:</label> 
           <input type="number" id="party_size" name="party_size" required>
+
           <br> 
+
+          <label for="dietary"> List any dietary requirements and allergies you may have </label>
+          <br>
+          <textarea type="text" name="dietary" > </textarea>
+
+          <br>
           <button type="submit">Submit</button> 
         </form>
     </div>

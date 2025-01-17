@@ -7,7 +7,6 @@ urlpatterns = [
     path('restaurant/menu' , views.Menu.as_view() , name='menu' ),
     path('about' , views.About.as_view() , name='about'),
     path('reservations', views.Reservations.as_view(), name="reservations" ),
-    path('reservations/availability', views.Reservations_bookings , name='reservations_availability' ),
     path('register' , views.register , name="register" ),
     path('loginview' , views.login_view , name="loginview")
 ]

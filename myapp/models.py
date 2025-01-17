@@ -17,7 +17,7 @@ class Reservation(models.Model):
         CANCELLED = 'Cancelled', _('Cancelled')
 
     name = models.CharField(max_length=100)  # Name of the person booking
-    table = models.ForeignKey(Table, on_delete=models.CASCADE)  # Link to the Table model
+    table = models.ForeignKey(Table, on_delete=models.CASCADE, null=True ,blank=True )  # Link to the Table model
     date = models.DateField()
     time = models.TimeField()
     party_size = models.PositiveIntegerField()
@@ -27,7 +27,7 @@ class Reservation(models.Model):
     status = models.CharField(
         max_length=10, 
         choices=ReservationStatus.choices, 
-        default=ReservationStatus.PENDING
+        default=ReservationStatus.CONFIRMED
     )
 
     def clean(self):
@@ -39,7 +39,7 @@ class Reservation(models.Model):
         return (
             f"Reservation for {self.name} on {self.date} at {self.time}, "
             f"Party Size: {self.party_size} (Children: {self.children}), "
-            f"Table {self.table.table_number}, Status: {self.status}"
+            f"Table {self.table} , Status: {self.status}"
         )
 
 
