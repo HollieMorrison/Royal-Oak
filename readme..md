@@ -121,9 +121,29 @@ create a view.
   we figure out what table names are left. And then check the table size and party requirements match ( highchair and table size )
 
 
-
 -------------
 
 We have a virtual environment linked to this project using pipenv. so the env has all of the packages we need for the project (django )
-manage.py is pipenv which allows us to run the commannds needed to interact.
+manage.py is pipenv which allows us to run the commands needed to interact.
 
+to do...
+  user stories
+    * as a user, i'd like to
+    * as a restaurant owner 
+
+  ui/design
+    * if you could find some nice pictures ( unsplash etc )
+    * wireframe / color scheme for the app.
+    * js validation and server side validation for the reservation
+
+  unit testing
+    * testing a reservation on the reserve url
+      * checking post parameters from the form
+      * testing if availability logic works correctly
+      * if children and party size is handled correctly.
+      * if date and time are correct given different values.
+
+  auth
+    * set up the correct urls ( views ) using django auth prebuilt
+    * setting up middleware ( functions that  sit between the client and server )
+    * getting the valid user.

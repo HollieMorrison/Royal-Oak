@@ -4,5 +4,15 @@
          <li> <a href={% url 'home' %}> home <a/> </li>
          <li> <a href={% url 'menu' %}> menu <a/> </li>
          <li> <a href={% url 'about' %}> about <a/> </li>
+        <li> <a href={% url 'reservations' %}> reserve </a> </li>
     </ul>
+    {% if user.is_authenticated %}
+            <p> Welcome, {{ user.username }}
+            <form id="logout-form" action="{% url 'logout' %}" method="post" style="display:none;">
+                {% csrf_token %}
+            </form>
+            <a href="#" onclick="document.getElementById('logout-form').submit();">Logout</a>     
+    {% else %}
+        <p> Not logged in 
+    {% endif %}
 </header>

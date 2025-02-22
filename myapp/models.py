@@ -1,6 +1,8 @@
+#import django ORM models module
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+# model representing a table
 class Table(models.Model):
     table_number = models.PositiveIntegerField(unique=True)  # Unique identifier for each table
     capacity = models.PositiveIntegerField()  # Maximum number of guests the table can accommodate

@@ -1,0 +1,23 @@
+{% extends "myapp/partials/base.html" %} 
+
+{% block content %}
+    <h1>Reservation Confirmed</h1>
+
+    <div style="border: 1px solid #ccc; padding: 15px; margin-top: 10px;">
+        <p><strong>Name:</strong> {{ reservation.name }}</p>
+        <p><strong>Date:</strong> {{ reservation.date }}</p>
+        <p><strong>Time:</strong> {{ reservation.time }}</p>
+        <p><strong>Party Size:</strong> {{ reservation.party_size }}</p>
+        <p><strong>Children:</strong> {{ reservation.children }}</p>
+        <p><strong>Table Number:</strong> {{ reservation.table.table_number }}</p>
+        {% if reservation.dietary_notes %}
+            <p><strong>Dietary Notes:</strong> {{ reservation.dietary_notes }}</p>
+        {% endif %}
+        <p><strong>Status:</strong> {{ reservation.status }}</p>
+    </div>
+
+    <br>
+    <a href="{% url 'reservations' %}" style="text-decoration: none;">
+        <button>Make Another Reservation</button>
+    </a>
+{% endblock %}

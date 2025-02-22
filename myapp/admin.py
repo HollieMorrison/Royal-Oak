@@ -11,7 +11,6 @@ class ReservationAdmin(admin.ModelAdmin):
 class MenuAdmin(admin.ModelAdmin):
   list_display = ('name', 'price', 'type')
 
-
 @admin.register(Table)
 class TableAdmin( admin.ModelAdmin):
   list_display = ( 'table_number' , 'capacity' , 'location')
