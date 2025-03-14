@@ -1,18 +1,83 @@
-<header>
-    <h1> My website </h1>
-    <ul> 
-         <li> <a href={% url 'home' %}> home <a/> </li>
-         <li> <a href={% url 'menu' %}> menu <a/> </li>
-         <li> <a href={% url 'about' %}> about <a/> </li>
-        <li> <a href={% url 'reservations' %}> reserve </a> </li>
-    </ul>
-    {% if user.is_authenticated %}
-            <p> Welcome, {{ user.username }}
-            <form id="logout-form" action="{% url 'logout' %}" method="post" style="display:none;">
+<nav class="navbar navbar-expand-lg navbar-light bg-transparent position-fixed w-100">
+    <div class="container-fluid">
+      <!-- LOGO/BRAND -->
+      <div>
+            <h1 class="text-white"> Royal Oak </h1>
+      </div>
+      <!-- MOBILE NAV TOGGLER (hamburger) -->
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarRight"
+        aria-controls="navbarRight"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+  
+      <!-- NAV LINKS & SOCIAL ICONS -->
+      <div class="collapse navbar-collapse justify-content-end" id="navbarRight">
+        <ul class="navbar-nav d-flex gap-4">
+          <li class="nav-item bg-dark px-2">
+            <a class="nav-link text-white" href="{% url 'home' %}">Home</a>
+          </li>
+          <li class="nav-item bg-dark px-2">
+            <a class="nav-link text-white" href="{% url 'menu' %}">Menu</a>
+          </li>
+          <li class="nav-item bg-dark px-2">
+            <a class="nav-link text-white" href="{% url 'about' %}">About</a>
+          </li>
+          <li class="nav-item bg-dark px-2">
+            <a class="nav-link text-white" href="{% url 'reservations' %}">Reserve</a>
+          </li>
+  
+          {% if user.is_authenticated %}
+
+            <li class="nav-item">
+              <span class="navbar-text text-white">
+                Welcome, {{ user.username }}
+              </span>
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link text-white"
+                href="#"
+                onclick="document.getElementById('logout-form').submit();"
+              >
+                Logout
+              </a>
+              <form
+                id="logout-form"
+                action="{% url 'logout' %}"
+                method="post"
+                style="display:none;"
+              >
                 {% csrf_token %}
-            </form>
-            <a href="#" onclick="document.getElementById('logout-form').submit();">Logout</a>     
-    {% else %}
-        <p> Not logged in 
-    {% endif %}
-</header>
+              </form>
+            </li>
+          {% else %}
+            <!-- If not logged in -->
+            <li class="nav-item">
+              <a class="nav-link text-white" href="#">Not logged in</a>
+            </li>
+          {% endif %}
+        </ul>
+  
+        <!-- SOCIAL ICONS -->
+        <div class="d-flex align-items-center ms-3">
+          <!-- Font Awesome icons (replace # with actual social links) -->
+          <a href="#" class="me-2">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+          <a href="#" class="me-2">
+            <i class="fab fa-twitter"></i>
+          </a>
+          <a href="#">
+            <i class="fab fa-instagram"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
