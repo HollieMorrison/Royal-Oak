@@ -14,7 +14,8 @@ from django.views.generic import TemplateView
 
 class Home ( View ) :
     def get(self,request ):
-        return render(request , 'myapp/index.html')
+        context = { 'fixed_header': True }
+        return render(request , 'myapp/index.html' , context )
 
 # HTTP when you communicate between client and server you
 # do so usi g either a GET, POST, PUT, DELETE .. 
@@ -118,7 +119,7 @@ class Reservations (LoginRequiredMixin , View):
         return render(request, 'myapp/reserved.html', {'reservation': reservation})
 
 
-class Menu ( View ) :
+class MenuPage ( View ) :
     def get(self,request ):
         # fetch data from the db and then load that into the html render.
 

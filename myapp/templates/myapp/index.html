@@ -1,20 +1,24 @@
 {% extends "myapp/partials/base.html" %} 
 
+
 {% block content %}
 {% comment %} https://images.unsplash.com/photo-1570560258879-af7f8e1447ac?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D {% endcomment %}
-        <div
+      <div
         class="min-vh-100 d-flex align-items-center justify-content-center"
         style="
           background: url('https://images.unsplash.com/photo-1570560258879-af7f8e1447ac?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') center center no-repeat;
           background-size: cover;
         "
       >
-        <div class="text-center text-white">
-          <h1 class="display-3 fw-bold mb-3">Welcome to My Site</h1>
-          <p class="lead mb-4">A short tagline or slogan goes here.</p>
-          <a href="#" class="btn btn-primary btn-lg">Call to Action</a>
-        </div>
+      <div class="d-flex gap-4">
+          <div class="text-center text-white">
+            <a href="#" class="btn btn-primary btn-lg">Sign up or Login</a>
+          </div>
+          <div class="text-center text-white">
+            <a href="#" class="btn btn-primary btn-lg">Book Now</a>
+          </div>
+      </div>
+      
       </div>
 
 {% endblock %}
-

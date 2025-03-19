@@ -1,0 +1,12 @@
+
+@media (max-width: 991.98px) {
+     .navbar-collapse {
+        background-color: black; 
+        padding: 30px;
+    }
+}
+
+/* Desktop view: When the viewport is 992px or wider */
+@media (min-width: 992px) {
+
+}

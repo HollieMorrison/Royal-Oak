@@ -3,7 +3,7 @@ from . import views
 
 urlpatterns = [
     path('' , views.Home.as_view() , name='home' ),
-    path('restaurant/menu' , views.Menu.as_view() , name='menu' ),
+    path('restaurant/menu' , views.MenuPage.as_view() , name='menu' ),
     path('about' , views.About.as_view() , name='about'),
     path('reservations', views.Reservations.as_view(), name="reservations" ),
     path('accounts/' , include('django.contrib.auth.urls') ),
