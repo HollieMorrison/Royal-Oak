@@ -7,6 +7,7 @@ urlpatterns = [
     path('about' , views.About.as_view() , name='about'),
     path('reservations', views.Reservations.as_view(), name="reservations" ),
     path('accounts/' , include('django.contrib.auth.urls') ),
+    path('myreservations' , views.MyReservations.as_view() , name='myreservations' ),
     path('reserved/<int:reservation_id>/', views.ReservedView.as_view(), name='reserved'),
     path('register' , views.register , name="register" )
 ]

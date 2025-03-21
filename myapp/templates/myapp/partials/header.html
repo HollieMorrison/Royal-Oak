@@ -26,7 +26,7 @@
       <!-- NAV LINKS & SOCIAL ICONS -->
       <div class="collapse navbar-collapse justify-content-end {% if fixed_header %}  {% endif %}" id="navbarRight">
         <ul class="navbar-nav d-flex gap-4">
-          <li class="nav-item  px-2">
+          <li class="nav-item px-2">
             <a class="nav-link text-black {% if fixed_header %} text-white {% endif %} " href="{% url 'home' %}">Home</a>
           </li>
           <li class="nav-item px-2">
@@ -47,20 +47,14 @@
               </span>
             </li>
             <li class="nav-item">
-              <a
-                class="nav-link text-white"
-                href="#"
-                onclick="document.getElementById('logout-form').submit();"
-              >
-                Logout
-              </a>
+             
               <form
                 id="logout-form"
                 action="{% url 'logout' %}"
                 method="post"
-                style="display:none;"
               >
                 {% csrf_token %}
+                <button type="submit" class='z-10'> Logout </button>
               </form>
             </li>
           {% else %}

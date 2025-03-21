@@ -1,12 +1,13 @@
 {% extends "myapp/partials/base.html" %} 
 
 {% block content %}
-    <h1> Register  </h1> 
-    <div>
-
+    <div class="d-flex flex-column align-items-center gap-2">  
+        <h1> Register </h1>
         <form
          action="{% url 'register' %}" 
-         method="post"> 
+         method="post"
+         class='d-flex flex-column gap-0.5'
+         > 
          {% csrf_token %} <!-- Include CSRF token for security -->
           <label for="username"> username:</label> 
           <input type="text" id="username" name="username" required>

@@ -16,6 +16,15 @@ class Home ( View ) :
     def get(self,request ):
         context = { 'fixed_header': True }
         return render(request , 'myapp/index.html' , context )
+    
+
+class MyReservations ( View ):
+    def get( self, request ):
+        context = { 'bookings' : '' }
+        # get the current user logged in using the session. 
+        # query reservations using the logged in user id.
+        return render( request , 'myapp/reservations.html' , context )
+    # def delete 
 
 # HTTP when you communicate between client and server you
 # do so usi g either a GET, POST, PUT, DELETE .. 
@@ -123,13 +132,14 @@ class MenuPage ( View ) :
     def get(self,request ):
         # fetch data from the db and then load that into the html render.
 
+        menu_breakfast = Menu.objects.filter(type='breakfast')
         menu_lunch  = Menu.objects.filter(type='lunch')
         menu_dinner = Menu.objects.filter(type='dinner')
 
-        print( menu_lunch, menu_dinner )
 
         # pass the array to the template / view
         context = {
+            'breakfast': menu_breakfast,
             'lunch': menu_lunch,
             'dinner': menu_dinner
         }
@@ -146,12 +156,15 @@ def register( request):
         password = request.POST.get('password')
         email = request.POST.get('email')
 
+        print( username , password )
+
         # we would want to check that a username or email does not already exist in the user db..
         if User.objects.filter( username=username ).exists():
             messages.error( request, 'Username already exists')
             return redirect('register')
-        user = User.objects.create( username=username, password=password, email=email )
+        user = User.objects.create_user( username=username, password=password, email=email )
+        user.save()
         messages.success( request , 'Registration was successful')
         return redirect('register')
     else:
-        return render( request , 'myapp/auth/register.html')
+        return render( request , 'registration/register.html')

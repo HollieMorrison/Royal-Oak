@@ -1,24 +1,30 @@
 {% extends "myapp/partials/base.html" %} 
 
 {% block content %}
-    <h1>Welcome to the Menu Page!</h1>
-    <p>This is a sample page rendered by Django.</p>
+    <div class="container-bg-secondary text light">
+    <h1 class="text-center p-5 fw-bold fst-italic">Royal Oak Menu</h1>
 
-    <div>
+    <div class="d-flex flex-column align-items-center fw-bold fst-italic">
+        <h3> Breakfast Menu </h3>
+        <ul class="list-unstyled text-center">
+            {% for item in breakfast %}
+                <li> {{ item.name }} - £{{ item.price }}
+            {% endfor %}
+        </ul>
 
         <h3> Lunch Menu </h3>
-        <ul>
+        <ul class="list-unstyled text-center">
             {% for item in lunch %}
-                <li> {{ item.name }} - {{ item.price }}
+                <li> {{ item.name }} - £{{ item.price }}
             {% endfor %}
         </ul>
         <h3> Dinner Menu </h3>
-        <ul>
+        <ul class="list-unstyled text-center">
             {% for item in dinner %}
-                <li> {{ item.name }} - {{ item.price }}
+                <li> {{ item.name }} - £{{ item.price }}
             {% endfor %}
         </ul>
-
+    </div>
         <div id="btn"> click me </div>
     </div>
     <script> 
