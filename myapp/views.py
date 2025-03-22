@@ -1,5 +1,5 @@
 from django.forms import TimeField
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect , get_object_or_404
 from django.http import HttpResponse
 from django.views import View
 from .models import Reservation, Menu, Table
@@ -8,7 +8,7 @@ from datetime import datetime, time, timedelta
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView
-
+from django.http import JsonResponse
 
 # Create your views here.
 
@@ -17,14 +17,32 @@ class Home ( View ) :
         context = { 'fixed_header': True }
         return render(request , 'myapp/index.html' , context )
     
+    
 
-class MyReservations ( View ):
+class MyReservations (LoginRequiredMixin , View ):
+    login_url = '/accounts/login'
+
     def get( self, request ):
-        context = { 'bookings' : '' }
+
         # get the current user logged in using the session. 
         # query reservations using the logged in user id.
+        reserved = Reservation.objects.filter(user=request.user )
+        print( reserved )
+        context = { 'reservations' : reserved }
         return render( request , 'myapp/reservations.html' , context )
     # def delete 
+    def delete(self, request, pk=None):
+        """
+        Handle an HTTP DELETE request to remove a reservation.
+        pk is required here to know which reservation to delete.
+        """
+        reservation = get_object_or_404(Reservation, pk=pk, user=request.user)
+        reservation.delete()
+        # Return a simple JSON indicating success. 
+        # Alternatively, you could return an HttpResponseRedirect,
+        # but then you'd be mixing up DELETE semantics. Typically, for a 
+        # real RESTful API, you'd return JSON.
+        return JsonResponse({'success': True})
 
 # HTTP when you communicate between client and server you
 # do so usi g either a GET, POST, PUT, DELETE .. 
@@ -83,7 +101,6 @@ class Reservations (LoginRequiredMixin , View):
         Handles POST requests for making reservations.
         Ensures the table is available before saving the reservation.
         """
-        name = request.POST.get('name')
         date = request.POST.get('date')
         reservation_time = request.POST.get('time')  # Renamed from `time` to avoid conflicts
         party_size = int(request.POST.get('party_size'))
@@ -116,7 +133,7 @@ class Reservations (LoginRequiredMixin , View):
 
         # Create and save the reservation
         reservation = Reservation.objects.create(
-            name=name,
+            user=request.user,
             date=date,
             time=time_object,
             table=table,

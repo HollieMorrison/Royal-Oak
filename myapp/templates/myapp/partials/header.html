@@ -38,9 +38,14 @@
           <li class="nav-item px-2">
             <a class="nav-link text-black {% if fixed_header %} text-white {% endif %}" href="{% url 'reservations' %}">Reserve</a>
           </li>
+
+
   
           {% if user.is_authenticated %}
-
+          <li class="nav-item px-2">
+            <a class="nav-link text-black {% if fixed_header %} text-white {% endif %}" href="{% url 'myreservations' %}">
+              My reservations 
+          </li>
             <li class="nav-item">
               <span class="navbar-text text-white">
                 Welcome, {{ user.username }}

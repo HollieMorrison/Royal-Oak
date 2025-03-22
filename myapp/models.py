@@ -1,6 +1,7 @@
 #import django ORM models module
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from django.conf import settings
 
 # model representing a table
 class Table(models.Model):
@@ -18,7 +19,7 @@ class Reservation(models.Model):
         CONFIRMED = 'Confirmed', _('Confirmed')
         CANCELLED = 'Cancelled', _('Cancelled')
 
-    name = models.CharField(max_length=100)  # Name of the person booking
+    user = models.ForeignKey(settings.AUTH_USER_MODEL , on_delete=models.CASCADE , null=True  )  # Name of the person booking
     table = models.ForeignKey(Table, on_delete=models.CASCADE, null=True ,blank=True )  # Link to the Table model
     date = models.DateField()
     time = models.TimeField()
@@ -39,7 +40,7 @@ class Reservation(models.Model):
 
     def __str__(self):
         return (
-            f"Reservation for {self.name} on {self.date} at {self.time}, "
+            f"Reservation on {self.date} at {self.time}, "
             f"Party Size: {self.party_size} (Children: {self.children}), "
             f"Table {self.table} , Status: {self.status}"
         )

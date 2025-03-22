@@ -1,8 +1,52 @@
-{% extends "myapp/partials/base.html" %} 
+{% extends "myapp/partials/base.html" %}
+{% load static %}
 
 {% block content %}
-    <h1> My Bookings </h1> 
-    <div class="d-flex justify-content-center">
+<h1>My Reservations</h1>
 
-    </div>
+<div>
+    {% for item in reservations %}
+        <div style="margin-bottom:1rem;">
+            Reservation #{{ item.pk }} on {{ item.date }} at {{ item.time }}<br>
+            Party Size: {{ item.party_size }} | Table: {{ item.table }}<br><br>
+
+            <button type="button" onclick="deleteReservation({{ item.pk }})">
+                Cancel
+            </button>
+        </div>
+    {% endfor %}
+</div>
+
+<!-- We'll need the CSRF token in JS if you're using fetch() -->
+<input type="hidden" id="csrf_token" value="{{ csrf_token }}">
+
+<script>
+    console.log('loaded')
+    function deleteReservation(pk) {
+        // We'll build the URL to the DELETE endpoint
+        const url = '/myreservations/${pk}/';  // or whatever pattern you define in urls.py
+        console.log( url )
+        const csrftoken = document.getElementById("csrf_token").value;
+
+        fetch(url, {
+            method: 'DELETE',
+            headers: {
+                'X-CSRFToken': csrftoken,
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => {
+            if (response.ok) {
+                // You can reload the page or remove the reservation from the DOM
+                window.location.reload();
+            } else {
+                alert("Error cancelling reservation.");
+            }
+        })
+        .catch(error => {
+            console.error(error);
+            alert("Error cancelling reservation.");
+        });
+    }
+</script>
 {% endblock %}

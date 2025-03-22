@@ -5,8 +5,17 @@ from .models import Reservation, Menu, Table
 
 @admin.register(Reservation)
 class ReservationAdmin(admin.ModelAdmin):
-  list_display = ('name', 'date', 'time', 'party_size', 'table')
-
+    # Fields to display in the list view
+    list_display = (
+        'user',
+        'table',
+        'date',
+        'time',
+        'party_size',
+        'children',
+        'status',
+    )
+    
 @admin.register(Menu)
 class MenuAdmin(admin.ModelAdmin):
   list_display = ('name', 'price', 'type')

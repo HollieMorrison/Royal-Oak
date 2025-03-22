@@ -14,9 +14,7 @@
          action="{% url 'reservations' %}" 
          method="post"> 
          {% csrf_token %} <!-- Include CSRF token for security -->
-          <label for="name">Name:</label> 
-          <input type="text" id="name" name="name" required>
-          <br> 
+         
           <label for="date">Date:</label> 
           <input type="date" id="date" name="date" required>
           <br> 
