@@ -13,6 +13,7 @@
             <button type="button" onclick="deleteReservation({{ item.pk }})">
                 Cancel
             </button>
+            <a href="{% url 'reserved' item.pk %}"> Update reservation </a>
         </div>
     {% endfor %}
 </div>

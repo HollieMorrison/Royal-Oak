@@ -17,7 +17,8 @@ class Home ( View ) :
         context = { 'fixed_header': True }
         return render(request , 'myapp/index.html' , context )
     
- 
+
+
 
 class MyReservations (LoginRequiredMixin , View ):
     login_url = '/accounts/login'
@@ -38,7 +39,7 @@ class MyReservations (LoginRequiredMixin , View ):
         return JsonResponse({'success': True})
 
 # HTTP when you communicate between client and server you
-# do so usi g either a GET, POST, PUT, DELETE .. 
+# do so using either a GET, POST, PUT, , PATCH , DELETE .. 
 
 def generate_time_options(start_time, end_time, interval_minutes):
     times = []
@@ -49,17 +50,7 @@ def generate_time_options(start_time, end_time, interval_minutes):
         current_time = (datetime.combine(datetime.min, current_time) + timedelta(minutes=interval_minutes)).time()
     return times
 
-def Reservations_bookings ( request ):
-    # retrieve party size and date for booking.
-    # retrieve information sent by the client and do something with that.
-    # user signing in sends their login username and password.
-    # figure out the available times
-    date = request.GET.get('date')
-    party_size = request.GET.get('party_size')
-    # reservations = Reservation.objects.filter(date='2024-12-05').values('time') get reservations for the date selected. 
-    # we need the window of opening time ( 1pm - 7pm ) give 30 min window bookings. 
-    # then use existing reservations to check that a table that matches party size is available.
-    return HttpResponse( date )
+
 
 class ReservedView(View):
     def get(self, request, reservation_id):
@@ -67,12 +58,24 @@ class ReservedView(View):
         Fetches and displays reservation details after successful booking.
         """
         try:
+            start_time = time(13, 0)  # 1:00 PM
+            end_time = time(19, 0)    # 7:00 PM
+            interval_minutes = 30
+
+            time_options = generate_time_options(start_time, end_time, interval_minutes)
             reservation = Reservation.objects.get(id=reservation_id)
         except Reservation.DoesNotExist:
             return render(request, 'myapp/reserved.html', {'error': "Reservation not found."})
 
-        return render(request, 'myapp/reserved.html', {'reservation': reservation})
+        return render(request, 'myapp/reserved.html', 
+                      {'reservation': reservation ,  
+                       'time_options': time_options
+                    })
 
+    def put(self, request ):
+        return JsonResponse({
+            'success': True 
+        })
 
 class Reservations (LoginRequiredMixin , View):
     

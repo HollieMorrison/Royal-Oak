@@ -1,23 +1,121 @@
+{% extends "myapp/partials/base.html" %}
+
+{% block content %}
+  <h1>Update Reservation</h1>
+    <input type="hidden" id="csrf_token" value="{{ csrf_token }}">
+  <!-- Update Reservation Form -->
+  <form id="reservationUpdateForm" onsubmit="event.preventDefault(); updateReservation({{ reservation.id }});">
+    <div>
+      <label for="dateInput">Date:</label>
+      <input type="date" id="dateInput" name="date" value="{{ reservation.date|date:'Y-m-d' }}">
+    </div>
+    <div>
+      <label for="timeInput">Time:</label>
+      <input type="time" id="timeInput" name="time" value="{{ reservation.time|time:'H:i:s' }}">
+    </div>
+    <div>
+      <label for="partyInput">Party Size:</label>
+      <input type="number" id="partyInput" name="party_size" value="{{ reservation.party_size }}">
+    </div>
+    <div>
+      <label for="childrenInput">Children:</label>
+      <input type="number" id="childrenInput" name="children" value="{{ reservation.children }}">
+    </div>
+    <div>
+      <label for="dietaryInput">Dietary Notes:</label>
+      <textarea id="dietaryInput" name="dietary_notes">{{ reservation.dietary_notes }}</textarea>
+    </div>
+    <br>
+    <button type="submit">Update Reservation</button>
+    <!-- We'll need the CSRF token in JS if you're using fetch() -->
+  
+  </form>
+
+  <script>
+
+
+    // Function to send a PUT request to update the reservation
+    function updateReservation(reservation_id ) {
+        console.log('isths')
+        const csrftoken = document.getElementById("csrf_token").value;
+      const data = {
+        date: document.getElementById('dateInput').value,
+        time: document.getElementById('timeInput').value,
+        party_size: document.getElementById('partyInput').value,
+        children: document.getElementById('childrenInput').value,
+        dietary_notes: document.getElementById('dietaryInput').value
+      };
+
+      fetch(`/reserved/${reservation_id }/update`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': csrf_token
+        },
+        body: JSON.stringify(data)
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.error) {
+          alert('Error: ' + data.error);
+        } else {
+          alert('Reservation updated successfully!');
+          // Optionally update the UI with new values or redirect, etc.
+        }
+      })
+      .catch(error => console.error('Error:', error));
+    }
+  </script>
+{% endblock %}
+
+{% comment %} 
+
 {% extends "myapp/partials/base.html" %} 
 
 {% block content %}
-    <h1>Reservation Confirmed</h1>
+    <h1> Update reservation </h1> 
+    <div class="d-flex justify-content-center">
 
-    <div style="border: 1px solid #ccc; padding: 15px; margin-top: 10px;">
-        <p><strong>Name:</strong> {{ reservation.name }}</p>
-        <p><strong>Date:</strong> {{ reservation.date }}</p>
-        <p><strong>Time:</strong> {{ reservation.time }}</p>
-        <p><strong>Party Size:</strong> {{ reservation.party_size }}</p>
-        <p><strong>Children:</strong> {{ reservation.children }}</p>
-        <p><strong>Table Number:</strong> {{ reservation.table.table_number }}</p>
-        {% if reservation.dietary_notes %}
-            <p><strong>Dietary Notes:</strong> {{ reservation.dietary_notes }}</p>
+        {% if error %}
+            <div style="color: red;">
+                {{ error }}
+            </div>
         {% endif %}
-        <p><strong>Status:</strong> {{ reservation.status }}</p>
-    </div>
 
-    <br>
-    <a href="{% url 'reservations' %}" style="text-decoration: none;">
-        <button>Make Another Reservation</button>
-    </a>
-{% endblock %}
+        <form
+         action="{% url 'reservations' %}" 
+         method="post"> 
+         {% csrf_token %} <!-- Include CSRF token for security -->
+         
+          <label for="date">Date:</label> 
+          <input type="date" id="date" name="date" required value="{{reservation.date|date:'Y-m-d'}}">
+          <br> 
+          <label for="time">Time:</label>
+          
+          <select name="time" value={{ reservation.time}}>
+            {% for time_option in time_options %}
+              <option value="{{ time_option }}">{{ time_option }}</option>
+            {% endfor %}
+          </select>
+
+          <br> 
+
+          <label for="children"> How many children in your party? </label>
+          <input type="number" name="children" value="{{reservation.children}}" />
+
+          <br>
+          <label for="party_size">Party Size:</label> 
+          <input type="number" id="party_size" name="party_size" required value="{{ reservation.party_size }}">
+
+          <br> 
+
+          <label for="dietary"> List any dietary requirements and allergies you may have </label>
+          <br>
+          <textarea type="text" name="dietary" value="{{ reservation.dietary_notes }}" > </textarea>
+
+          <br>
+          <button type="submit">Submit</button> 
+        </form>
+    </div>
+{% endblock %} {% endcomment %}
+
