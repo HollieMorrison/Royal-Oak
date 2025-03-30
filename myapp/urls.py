@@ -8,9 +8,8 @@ urlpatterns = [
     path('reservations', views.Reservations.as_view(), name="reservations" ),
     path('accounts/' , include('django.contrib.auth.urls') ),
     path('myreservations' , views.MyReservations.as_view() , name='myreservations' ),
-
-
-    path('myreservations/<int:pk>' , views.MyReservations.as_view() , name='myreservation__delete' ),
+    path('deletereservation/<int:pk>' , views.MyReservations.as_view() , name='deletereservation' ),
+    
     path('reserved/<int:reservation_id>/', views.ReservedView.as_view(), name='reserved'),
     path('register' , views.register , name="register" )
 ]

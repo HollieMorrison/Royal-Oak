@@ -17,7 +17,7 @@ class Home ( View ) :
         context = { 'fixed_header': True }
         return render(request , 'myapp/index.html' , context )
     
-    
+ 
 
 class MyReservations (LoginRequiredMixin , View ):
     login_url = '/accounts/login'
@@ -32,16 +32,9 @@ class MyReservations (LoginRequiredMixin , View ):
         return render( request , 'myapp/reservations.html' , context )
     # def delete 
     def delete(self, request, pk=None):
-        """
-        Handle an HTTP DELETE request to remove a reservation.
-        pk is required here to know which reservation to delete.
-        """
+        print('hit api route...')
         reservation = get_object_or_404(Reservation, pk=pk, user=request.user)
         reservation.delete()
-        # Return a simple JSON indicating success. 
-        # Alternatively, you could return an HttpResponseRedirect,
-        # but then you'd be mixing up DELETE semantics. Typically, for a 
-        # real RESTful API, you'd return JSON.
         return JsonResponse({'success': True})
 
 # HTTP when you communicate between client and server you

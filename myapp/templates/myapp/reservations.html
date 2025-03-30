@@ -19,12 +19,12 @@
 
 <!-- We'll need the CSRF token in JS if you're using fetch() -->
 <input type="hidden" id="csrf_token" value="{{ csrf_token }}">
-
+{% csrf_token %} <!-- Include CSRF token for security -->
 <script>
     console.log('loaded')
     function deleteReservation(pk) {
         // We'll build the URL to the DELETE endpoint
-        const url = '/myreservations/${pk}/';  // or whatever pattern you define in urls.py
+        const url = `/deletereservation/${pk}`;  // or whatever pattern you define in urls.py
         console.log( url )
         const csrftoken = document.getElementById("csrf_token").value;
 
