@@ -1,1 +1,1 @@
-web: gunicorn djangoapp.wsgi
+web: gunicorn royaloak.wsgi
