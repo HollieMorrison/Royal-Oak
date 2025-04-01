@@ -127,4 +127,4 @@ LOGIN_REDIRECT_URL = '/'
 
 ALLOWED_HOSTS = ['.herokuapp.com','localhost']
 
-DEBUG = True
+DEBUG = False

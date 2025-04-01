@@ -55,7 +55,7 @@ def generate_time_options(start_time, end_time, interval_minutes):
 class ReservedView(View):
     def get(self, request, reservation_id):
         """
-        Fetches and displays reservation details after successful booking.
+        Fetches reservation details after successful booking and to be displayed.
         """
         try:
             start_time = time(13, 0)  # 1:00 PM
@@ -82,26 +82,20 @@ class Reservations (LoginRequiredMixin , View):
     login_url = '/accounts/login'
 
     def get(self, request):
-        """
-        Handles GET requests by displaying available reservation time slots.
-        """
-        start_time = time(13, 0)  # 1:00 PM
-        end_time = time(19, 0)    # 7:00 PM
+        
+        start_time = time(13, 0) 
         interval_minutes = 30
 
         time_options = generate_time_options(start_time, end_time, interval_minutes)
         return render(request, 'myapp/reserve.html', {'time_options': time_options})
 
     def post(self, request):
-        """
-        Handles POST requests for making reservations.
-        Ensures the table is available before saving the reservation.
-        """
+        
         date = request.POST.get('date')
-        reservation_time = request.POST.get('time')  # Renamed from `time` to avoid conflicts
+        reservation_time = request.POST.get('time')  
         party_size = int(request.POST.get('party_size'))
-        children = request.POST.get('children', '0')  # Ensure it's a string
-        children = int(children) if children.isdigit() else 0  # Convert safely
+        children = request.POST.get('children', '0')  
+        children = int(children) if children.isdigit() else 0  
         dietary_notes = request.POST.get('dietary', '')
 
         # Convert string time input to proper time format
