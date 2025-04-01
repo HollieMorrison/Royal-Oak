@@ -10,7 +10,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView
 from django.http import JsonResponse
 
-# Create your views here.
+
 
 class Home ( View ) :
     def get(self,request ):
@@ -45,7 +45,7 @@ def generate_time_options(start_time, end_time, interval_minutes):
     times = []
     current_time = start_time
     while current_time < end_time:
-        # Format the time as a string compatible with TimeField (HH:MM)
+        
         times.append(current_time.strftime("%H:%M"))
         current_time = (datetime.combine(datetime.min, current_time) + timedelta(minutes=interval_minutes)).time()
     return times

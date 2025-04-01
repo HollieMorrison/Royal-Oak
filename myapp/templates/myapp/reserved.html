@@ -3,7 +3,7 @@
 {% block content %}
   <h1>Update Reservation</h1>
     <input type="hidden" id="csrf_token" value="{{ csrf_token }}">
-  <!-- Update Reservation Form -->
+  
   <form id="reservationUpdateForm" onsubmit="event.preventDefault(); updateReservation({{ reservation.id }});">
     <div>
       <label for="dateInput">Date:</label>
@@ -27,14 +27,14 @@
     </div>
     <br>
     <button type="submit">Update Reservation</button>
-    <!-- We'll need the CSRF token in JS if you're using fetch() -->
+    
   
   </form>
 
   <script>
 
 
-    // Function to send a PUT request to update the reservation
+    
     function updateReservation(reservation_id ) {
         console.log('isths')
         const csrftoken = document.getElementById("csrf_token").value;
@@ -60,7 +60,7 @@
           alert('Error: ' + data.error);
         } else {
           alert('Reservation updated successfully!');
-          // Optionally update the UI with new values or redirect, etc.
+          
         }
       })
       .catch(error => console.error('Error:', error));
