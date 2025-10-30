@@ -1,62 +1,46 @@
-#import django ORM models module
-from django.db import models
-from django.utils.translation import gettext_lazy as _
 from django.conf import settings
+from django.core.exceptions import ValidationError
+from django.db import models
+from datetime import date
 
-# model representing a table
+# This represents a physical table in the restaurant
 class Table(models.Model):
-    table_number = models.PositiveIntegerField(unique=True)  # Unique identifier for each table
-    capacity = models.PositiveIntegerField()  # Maximum number of guests the table can accommodate
-    location = models.CharField(max_length=100, blank=True)  # Optional, e.g., "Window", "Patio"
+    name = models.CharField(max_length=20, unique=True)  # Table name
+    seats = models.PositiveIntegerField()  # Number of seats available
 
     def __str__(self):
-        return f"Table {self.table_number} (Capacity: {self.capacity})"
+        # This is a display name and seat in admin or template
+        return f"{self.name} ({self.seats})"
 
 
-class Reservation(models.Model):
-    class ReservationStatus(models.TextChoices):
-        PENDING = 'Pending', _('Pending')
-        CONFIRMED = 'Confirmed', _('Confirmed')
-        CANCELLED = 'Cancelled', _('Cancelled')
-
-    user = models.ForeignKey(settings.AUTH_USER_MODEL , on_delete=models.CASCADE , null=True  )  # Name of the person booking
-    table = models.ForeignKey(Table, on_delete=models.CASCADE, null=True ,blank=True )  # Link to the Table model
-    date = models.DateField()
-    time = models.TimeField()
-    party_size = models.PositiveIntegerField()
-    
-    children = models.PositiveIntegerField(default=0)
-    dietary_notes = models.TextField(blank=True)  # More descriptive dietary field
-    status = models.CharField(
-        max_length=10, 
-        choices=ReservationStatus.choices, 
-        default=ReservationStatus.CONFIRMED
-    )
+# This stores individual booking records made by users
+class Booking(models.Model):
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE
+    )  # Links booking to the user who made it
+    date = models.DateField()  # Date of reservation
+    time = models.TimeField()  # Time of reservation
+    party_size = models.PositiveIntegerField()  # Number of guests
+    table = models.ForeignKey(Table, on_delete=models.PROTECT)  # Which table is booked
+    created_at = models.DateTimeField(auto_now_add=True)  # Timestamp for record creation
 
     def clean(self):
-        # Ensure party size does not exceed table capacity
-        if self.party_size > self.table.capacity:
-            raise ValueError("Party size cannot exceed the table capacity.")
+       
+        # Prevent booking for past dates
+        if self.date < date.today():
+            raise ValidationError("You can’t book for a past date.")
+
+        # Prevent multiple bookings for the same table, date, and time
+        clash = Booking.objects.filter(
+            date=self.date, time=self.time, table=self.table
+        ).exclude(id=self.id).exists()
+        if clash:
+            raise ValidationError("That table is already booked for that slot.")
+
+        # Prevent party sizes larger than the table capacity
+        if self.party_size > self.table.seats:
+            raise ValidationError("Party size exceeds table capacity.")
 
     def __str__(self):
-        return (
-            f"Reservation on {self.date} at {self.time}, "
-            f"Party Size: {self.party_size} (Children: {self.children}), "
-            f"Table {self.table} , Status: {self.status}"
-        )
-
-
-class MealType(models.TextChoices):
-    BREAKFAST = 'breakfast', _('Breakfast')
-    LUNCH = 'lunch', _('Lunch')
-    DINNER = 'dinner', _('Dinner')
-
-
-class Menu(models.Model):
-    name = models.CharField(max_length=100)  # Name of the menu item
-    description = models.TextField(blank=True)  # Optional description
-    price = models.DecimalField(max_digits=10, decimal_places=2)  # Currency support
-    type = models.CharField(choices=MealType.choices, default=MealType.LUNCH, max_length=30)
-
-    def __str__(self):
-        return f"{self.name} - £{self.price} ({self.type})"
+        # This is for admin and debugging
+        return f"{self.user} — {self.date} {self.time} — {self.table}"
