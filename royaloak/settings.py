@@ -2,8 +2,9 @@
 Django settings for royaloak project.
 """
 
-from pathlib import Path
 import os
+from pathlib import Path
+
 import environ
 
 # -----------------------------

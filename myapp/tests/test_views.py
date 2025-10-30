@@ -1,7 +1,9 @@
+from datetime import date, time
+
 import pytest
 from django.urls import reverse
-from datetime import date, time
-from myapp.models import Table, Booking
+
+from myapp.models import Booking, Table
 
 
 @pytest.mark.django_db

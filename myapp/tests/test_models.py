@@ -1,7 +1,9 @@
+from datetime import date, time, timedelta
+
 import pytest
 from django.core.exceptions import ValidationError
-from datetime import date, time, timedelta
-from myapp.models import Table, Booking
+
+from myapp.models import Booking, Table
 
 
 @pytest.mark.django_db
