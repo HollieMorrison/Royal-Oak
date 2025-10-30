@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+<main>
+  <h1>{{ view.object|yesno:"Edit booking,Make a reservation" }}</h1>
+
+  <!-- Booking form -->
+  <form method="post">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    {% for field in form %}
+      <div>
+        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+        {{ field }}
+        {% if field.errors %}
+          <div class="error">{{ field.errors }}</div>
+        {% endif %}
+      </div>
+    {% endfor %}
+    <button type="submit">Save</button>
+  </form>
+</main>
+{% endblock %}
