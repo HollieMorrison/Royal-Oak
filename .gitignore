@@ -166,3 +166,8 @@ db.sqlite3
 __pycache__/
 *.pyc
 staticfiles/
+.env
+db.sqlite3
+__pycache__/
+*.pyc
+staticfiles/
