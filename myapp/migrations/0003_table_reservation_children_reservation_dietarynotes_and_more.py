@@ -6,32 +6,40 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('myapp', '0002_menu'),
+        ("myapp", "0002_menu"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Table',
+            name="Table",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('table_number', models.PositiveIntegerField(unique=True)),
-                ('capacity', models.PositiveIntegerField()),
-                ('location', models.CharField(blank=True, max_length=100)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("table_number", models.PositiveIntegerField(unique=True)),
+                ("capacity", models.PositiveIntegerField()),
+                ("location", models.CharField(blank=True, max_length=100)),
             ],
         ),
         migrations.AddField(
-            model_name='reservation',
-            name='children',
+            model_name="reservation",
+            name="children",
             field=models.IntegerField(default=0),
         ),
         migrations.AddField(
-            model_name='reservation',
-            name='dietaryNotes',
-            field=models.CharField(default='', max_length=200),
+            model_name="reservation",
+            name="dietaryNotes",
+            field=models.CharField(default="", max_length=200),
         ),
         migrations.AlterField(
-            model_name='menu',
-            name='name',
+            model_name="menu",
+            name="name",
             field=models.CharField(max_length=100),
         ),
     ]

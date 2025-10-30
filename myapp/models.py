@@ -3,12 +3,14 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from datetime import date
 
+
 class Table(models.Model):
     name = models.CharField(max_length=20, unique=True)
     seats = models.PositiveIntegerField()
 
     def __str__(self):
         return f"{self.name} ({self.seats})"
+
 
 class Booking(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -24,9 +26,11 @@ class Booking(models.Model):
             raise ValidationError("You can’t book for a past date.")
 
         # No double bookings on same table/date/time
-        clash = Booking.objects.filter(
-            date=self.date, time=self.time, table=self.table
-        ).exclude(id=self.id).exists()
+        clash = (
+            Booking.objects.filter(date=self.date, time=self.time, table=self.table)
+            .exclude(id=self.id)
+            .exists()
+        )
         if clash:
             raise ValidationError("That table is already booked for that slot.")
 

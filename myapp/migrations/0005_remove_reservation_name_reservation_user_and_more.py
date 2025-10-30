@@ -8,23 +8,35 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('myapp', '0004_remove_reservation_dietarynotes_menu_description_and_more'),
+        ("myapp", "0004_remove_reservation_dietarynotes_menu_description_and_more"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='reservation',
-            name='name',
+            model_name="reservation",
+            name="name",
         ),
         migrations.AddField(
-            model_name='reservation',
-            name='user',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL),
+            model_name="reservation",
+            name="user",
+            field=models.ForeignKey(
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
         migrations.AlterField(
-            model_name='reservation',
-            name='status',
-            field=models.CharField(choices=[('Pending', 'Pending'), ('Confirmed', 'Confirmed'), ('Cancelled', 'Cancelled')], default='Confirmed', max_length=10),
+            model_name="reservation",
+            name="status",
+            field=models.CharField(
+                choices=[
+                    ("Pending", "Pending"),
+                    ("Confirmed", "Confirmed"),
+                    ("Cancelled", "Cancelled"),
+                ],
+                default="Confirmed",
+                max_length=10,
+            ),
         ),
     ]
