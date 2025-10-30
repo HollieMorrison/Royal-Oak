@@ -1,25 +1,13 @@
 from django.contrib import admin
-from .models import Reservation, Menu, Table
-
-# Register your models here.
-
-@admin.register(Reservation)
-class ReservationAdmin(admin.ModelAdmin):
-    # Fields to display in the list view
-    list_display = (
-        'user',
-        'table',
-        'date',
-        'time',
-        'party_size',
-        'children',
-        'status',
-    )
-    
-@admin.register(Menu)
-class MenuAdmin(admin.ModelAdmin):
-  list_display = ('name', 'price', 'type')
+from .models import Table, Booking
 
 @admin.register(Table)
-class TableAdmin( admin.ModelAdmin):
-  list_display = ( 'table_number' , 'capacity' , 'location')
+class TableAdmin(admin.ModelAdmin):
+    list_display = ("name", "seats")
+    search_fields = ("name",)
+
+@admin.register(Booking)
+class BookingAdmin(admin.ModelAdmin):
+    list_display = ("user", "date", "time", "table", "party_size", "created_at")
+    list_filter = ("date", "time", "table")
+    search_fields = ("user__username", "table__name")

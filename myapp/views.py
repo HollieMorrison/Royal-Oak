@@ -10,18 +10,16 @@ class BookingCreateView(LoginRequiredMixin, CreateView):
     form_class = BookingForm
     template_name = "booking_form.html"
     success_url = reverse_lazy("my_bookings")
-
     def form_valid(self, form):
         form.instance.user = self.request.user
-        response = super().form_valid(form)
+        resp = super().form_valid(form)
         messages.success(self.request, "Booking created!")
-        return response
+        return resp
 
 class MyBookingsView(LoginRequiredMixin, ListView):
     model = Booking
     template_name = "booking_list.html"
     context_object_name = "bookings"
-
     def get_queryset(self):
         qs = super().get_queryset()
         if self.request.user.is_staff:
@@ -38,17 +36,15 @@ class BookingUpdateView(LoginRequiredMixin, OwnerRequiredMixin, UpdateView):
     form_class = BookingForm
     template_name = "booking_form.html"
     success_url = reverse_lazy("my_bookings")
-
     def form_valid(self, form):
-        response = super().form_valid(form)
+        resp = super().form_valid(form)
         messages.success(self.request, "Booking updated!")
-        return response
+        return resp
 
 class BookingDeleteView(LoginRequiredMixin, OwnerRequiredMixin, DeleteView):
     model = Booking
     template_name = "booking_confirm_delete.html"
     success_url = reverse_lazy("my_bookings")
-
     def delete(self, *args, **kwargs):
         messages.success(self.request, "Booking cancelled.")
         return super().delete(*args, **kwargs)

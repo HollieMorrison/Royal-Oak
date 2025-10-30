@@ -19,11 +19,18 @@ class Booking(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def clean(self):
+        # No bookings in the past
         if self.date < date.today():
             raise ValidationError("You can’t book for a past date.")
-        clash = Booking.objects.filter(date=self.date, time=self.time, table=self.table).exclude(id=self.id).exists()
+
+        # No double bookings on same table/date/time
+        clash = Booking.objects.filter(
+            date=self.date, time=self.time, table=self.table
+        ).exclude(id=self.id).exists()
         if clash:
             raise ValidationError("That table is already booked for that slot.")
+
+        # Party must fit the table
         if self.party_size > self.table.seats:
             raise ValidationError("Party size exceeds table capacity.")
 
