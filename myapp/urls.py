@@ -1,16 +1,15 @@
-from django.urls import path , include
-from . import views  
+from django.urls import path
+from .views import (
+    BookingCreateView,
+    MyBookingsView,
+    BookingUpdateView,
+    BookingDeleteView,
+)
 
+# Routes for booking functionality
 urlpatterns = [
-    path('' , views.Home.as_view() , name='home' ),
-    path('restaurant/menu' , views.MenuPage.as_view() , name='menu' ),
-    path('about' , views.About.as_view() , name='about'),
-    path('reservations', views.Reservations.as_view(), name="reservations" ),
-    path('accounts/' , include('django.contrib.auth.urls') ),
-    path('myreservations' , views.MyReservations.as_view() , name='myreservations' ),
-    path('deletereservation/<int:pk>' , views.MyReservations.as_view() , name='deletereservation' ),
-
-    path('reserved/<int:reservation_id>/', views.ReservedView.as_view(), name='reserved'),
-    path('reserved/<int:pk>/update' , views.ReservedView.as_view(), name='reserved_update' ),
-    path('register' , views.register , name="register" )
+    path("reserve/", BookingCreateView.as_view(), name="reserve"),  # Create booking
+    path("bookings/", MyBookingsView.as_view(), name="my_bookings"),  # View list
+    path("bookings/<int:pk>/edit/", BookingUpdateView.as_view(), name="booking_edit"),  # Edit
+    path("bookings/<int:pk>/delete/", BookingDeleteView.as_view(), name="booking_delete"),  # Delete
 ]

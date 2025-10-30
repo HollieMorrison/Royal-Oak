@@ -1,24 +1,15 @@
-"""
-URL configuration for royaloak project.
+from django.urls import path
+from .views import (
+    BookingCreateView,
+    MyBookingsView,
+    BookingUpdateView,
+    BookingDeleteView,
+)
 
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/5.1/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
-
-from django.contrib import admin
-from django.urls import path, include
-
+# Routes for booking functionality
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('myapp.urls'))
+    path("reserve/", BookingCreateView.as_view(), name="reserve"),  # Create booking
+    path("bookings/", MyBookingsView.as_view(), name="my_bookings"),  # View list
+    path("bookings/<int:pk>/edit/", BookingUpdateView.as_view(), name="booking_edit"),  # Edit
+    path("bookings/<int:pk>/delete/", BookingDeleteView.as_view(), name="booking_delete"),  # Delete
 ]
