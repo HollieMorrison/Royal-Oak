@@ -1,0 +1,122 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Royal Oak – Restaurant Bookings</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet">
+  </head>
+  <body>
+    <div class="site-wrapper">
+      <header class="site-header">
+        <div class="brand">
+          <div class="brand-badge">RO</div>
+          <div>
+            <div class="brand-text-title">The Royal Oak</div>
+            <div class="brand-text-subtitle">EST. 1894 · GASTROPUB</div>
+          </div>
+        </div>
+
+        <nav class="nav-links">
+          <a href="/" class="nav-link">Home</a>
+          <a href="{% url 'my_bookings' %}" class="nav-link">My bookings</a>
+          {% if user.is_staff %}
+            <a href="{% url 'staff_dashboard' %}" class="nav-link">Staff</a>
+          {% endif %}
+          {% if user.is_authenticated %}
+            <a href="/admin/logout/" class="nav-link">Admin logout</a>
+          {% else %}
+            <a href="/admin/login/" class="nav-link">Admin login</a>
+          {% endif %}
+          {% if user.is_authenticated %}
+            <a href="{% url 'reserve' %}" class="nav-link nav-link--primary">Reserve</a>
+          {% else %}
+            <a href="/admin/login/" class="nav-link nav-link--primary">Sign in</a>
+          {% endif %}
+        </nav>
+      </header>
+
+      {% if messages %}
+      <ul class="flash-messages" aria-live="polite">
+        {% for message in messages %}
+          <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+
+      <main class="hero">
+        <section class="hero-card">
+          <div class="hero-pill">
+            <span>Book your table</span>
+          </div>
+
+          <h1 class="hero-title">
+            Relaxed dining & <span class="hero-highlight">easy reservations</span>
+            at your local.
+          </h1>
+
+          <p class="hero-subtitle">
+            Reserve a table at The Royal Oak in just a few clicks. Choose your date,
+            time and party size — we’ll have your spot ready when you arrive.
+          </p>
+
+          <div class="hero-actions">
+            {% if user.is_authenticated %}
+              <a href="{% url 'reserve' %}" class="btn btn-primary">
+                Reserve a table
+              </a>
+              <a href="{% url 'my_bookings' %}" class="btn btn-ghost">
+                View my bookings
+              </a>
+            {% else %}
+              <a href="/admin/login/" class="btn btn-primary">
+                Log in to book
+              </a>
+              <a href="/admin/login/" class="btn btn-ghost">
+                Staff access
+              </a>
+            {% endif %}
+          </div>
+
+          <div class="hero-meta">
+            <span>
+              <span class="hero-meta-dot"></span>
+              Serving food 12pm – 10pm
+            </span>
+            <span>
+              <span class="hero-meta-dot"></span>
+              Walk-ins welcome at the bar
+            </span>
+          </div>
+        </section>
+
+        <aside class="hero-side">
+          <div class="hero-panel">
+            <div class="hero-panel-title">Today at a glance</div>
+            <div class="hero-panel-row">
+              <span>Online bookings</span>
+              <span class="badge-soft">Managed via app</span>
+            </div>
+            <div class="hero-panel-row">
+              <span>Max party size</span>
+              <span>Up to 8 guests</span>
+            </div>
+            <div class="hero-panel-row">
+              <span>Booking lead time</span>
+              <span>Book same day*</span>
+            </div>
+            <div class="hero-panel-footer">
+              <span>*Subject to availability</span>
+              <span>Secure, role-based access</span>
+            </div>
+          </div>
+        </aside>
+      </main>
+    </div>
+
+    <footer class="site-footer">
+      &copy; {% now "Y" %} The Royal Oak. All bookings managed securely through this application.
+    </footer>
+  </body>
+</html>

@@ -1,60 +1,72 @@
 from django.contrib import messages
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.urls import reverse_lazy
-from django.views.generic import CreateView, DeleteView, ListView, UpdateView
+from django.contrib.auth.decorators import login_required, user_passes_test
+from django.shortcuts import get_object_or_404, redirect, render
 
 from .forms import BookingForm
 from .models import Booking
 
 
-class BookingCreateView(LoginRequiredMixin, CreateView):
-    model = Booking
-    form_class = BookingForm
-    template_name = "booking_form.html"
-    success_url = reverse_lazy("my_bookings")
-
-    def form_valid(self, form):
-        form.instance.user = self.request.user
-        resp = super().form_valid(form)
-        messages.success(self.request, "Booking created!")
-        return resp
+def home(request):
+    return render(request, "home.html")
 
 
-class MyBookingsView(LoginRequiredMixin, ListView):
-    model = Booking
-    template_name = "booking_list.html"
-    context_object_name = "bookings"
-
-    def get_queryset(self):
-        qs = super().get_queryset()
-        if self.request.user.is_staff:
-            return qs.order_by("-created_at")
-        return qs.filter(user=self.request.user).order_by("-created_at")
+@login_required
+def my_bookings(request):
+    bookings = (
+        Booking.objects.filter(user=request.user)
+        .order_by("-date", "-start_time")
+    )
+    return render(request, "bookings/list.html", {"bookings": bookings})
 
 
-class OwnerRequiredMixin(UserPassesTestMixin):
-    def test_func(self):
-        obj = self.get_object()
-        return self.request.user.is_staff or obj.user == self.request.user
+@login_required
+def booking_create(request):
+    if request.method == "POST":
+        form = BookingForm(request.POST)
+        if form.is_valid():
+            booking = form.save(commit=False)
+            booking.user = request.user
+            booking.full_clean()
+            booking.save()
+            messages.success(request, "Booking created!")
+            return redirect("my_bookings")
+    else:
+        form = BookingForm()
+    return render(request, "bookings/form.html", {"form": form})
 
 
-class BookingUpdateView(LoginRequiredMixin, OwnerRequiredMixin, UpdateView):
-    model = Booking
-    form_class = BookingForm
-    template_name = "booking_form.html"
-    success_url = reverse_lazy("my_bookings")
+@login_required
+def booking_edit(request, pk):
+    booking = get_object_or_404(Booking, pk=pk, user=request.user)
+    if request.method == "POST":
+        form = BookingForm(request.POST, instance=booking)
+        if form.is_valid():
+            booking = form.save(commit=False)
+            booking.full_clean()
+            booking.save()
+            messages.success(request, "Booking updated!")
+            return redirect("my_bookings")
+    else:
+        form = BookingForm(instance=booking)
+    return render(request, "bookings/form.html", {"form": form})
 
-    def form_valid(self, form):
-        resp = super().form_valid(form)
-        messages.success(self.request, "Booking updated!")
-        return resp
+
+@login_required
+def booking_delete(request, pk):
+    booking = get_object_or_404(Booking, pk=pk, user=request.user)
+    booking.delete()
+    messages.info(request, "Booking deleted.")
+    return redirect("my_bookings")
 
 
-class BookingDeleteView(LoginRequiredMixin, OwnerRequiredMixin, DeleteView):
-    model = Booking
-    template_name = "booking_confirm_delete.html"
-    success_url = reverse_lazy("my_bookings")
+def is_staff(user):
+    return user.is_staff
 
-    def delete(self, *args, **kwargs):
-        messages.success(self.request, "Booking cancelled.")
-        return super().delete(*args, **kwargs)
+
+@user_passes_test(is_staff)
+def staff_dashboard(request):
+    date = request.GET.get("date")
+    qs = Booking.objects.filter(status="CONFIRMED").order_by("date", "start_time")
+    if date:
+        qs = qs.filter(date=date)
+    return render(request, "staff/dashboard.html", {"bookings": qs})
