@@ -95,3 +95,11 @@ def signup(request):
         form = UserCreationForm()
 
     return render(request, "registration/signup.html", {"form": form})
+
+
+@login_required
+def account(request):
+    """
+    Simple account page for logged-in users with a logout link.
+    """
+    return render(request, "account.html")

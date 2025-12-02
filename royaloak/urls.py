@@ -13,6 +13,7 @@ urlpatterns = [
     path("bookings/<int:pk>/edit/", views.booking_edit, name="booking_edit"),
     path("bookings/<int:pk>/delete/", views.booking_delete, name="booking_delete"),
     path("staff/", views.staff_dashboard, name="staff_dashboard"),
+    path("account/", views.account, name="account"),
 
     # Auth: login / logout / signup
     path(
