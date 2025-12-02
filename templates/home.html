@@ -30,7 +30,7 @@
             <a href="{% url 'reserve' %}" class="nav-link nav-link--primary">Reserve</a>
           {% else %}
             <a href="{% url 'login' %}" class="nav-link">Login</a>
-            <a href="{% url 'login' %}" class="nav-link nav-link--primary">Sign in to book</a>
+            <a href="{% url 'signup' %}" class="nav-link nav-link--primary">Sign up</a>
           {% endif %}
         </nav>
       </header>
@@ -72,8 +72,8 @@
               <a href="{% url 'login' %}" class="btn btn-primary">
                 Log in to book
               </a>
-              <a href="{% url 'login' %}" class="btn btn-ghost">
-                Staff access
+              <a href="{% url 'signup' %}" class="btn btn-ghost">
+                Create an account
               </a>
             {% endif %}
           </div>

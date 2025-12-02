@@ -28,7 +28,8 @@
             {% endif %}
             <a href="{% url 'logout' %}" class="nav-link nav-link--primary">Logout</a>
           {% else %}
-            <a href="{% url 'login' %}" class="nav-link nav-link--primary">Login</a>
+            <a href="{% url 'login' %}" class="nav-link">Login</a>
+            <a href="{% url 'signup' %}" class="nav-link nav-link--primary">Sign up</a>
           {% endif %}
         </nav>
       </header>
@@ -71,7 +72,8 @@
           </form>
 
           <p class="booking-back-link">
-            <a href="{% url 'home' %}">&larr; Back to home</a>
+            New here?
+            <a href="{% url 'signup' %}">Create an account</a>.
           </p>
         </section>
       </main>

@@ -29,14 +29,103 @@
             <a href="{% url 'logout' %}" class="nav-link">Logout</a>
           {% else %}
             <a href="{% url 'login' %}" class="nav-link">Login</a>
+            <a href="{% url 'signup' %}" class="nav-link">Sign up</a>
           {% endif %}
         </nav>
       </header>
 
-      <!-- rest of your existing menu content stays the same -->
-      <!-- (I won't rewrite the whole thing here since we already did that above) -->
-      {% comment %} Keep the existing menu sections here {% endcomment %}
-      {% include "menu_body_only.html" %}
+      <main class="hero">
+        <section class="hero-main">
+          <div class="hero-pill">
+            <span class="hero-pill-dot"></span>
+            <span>Our menu</span>
+          </div>
+
+          <h1 class="hero-title">
+            Seasonal dishes, <span>classic pub comfort</span>.
+          </h1>
+
+          <p class="hero-subtitle">
+            Below is a sample of what we serve. Our menu changes with the seasons
+            and local produce, but this gives a flavour of The Royal Oak.
+          </p>
+
+          <div class="hero-meta">
+            <span>Breakfast · 08:00 – 11:30 (weekends)</span>
+            <span>Lunch & mains · 12:00 – 21:30</span>
+          </div>
+        </section>
+
+        <aside class="hero-side">
+          <div class="hero-panel">
+            <div class="hero-panel-heading">Booking tip</div>
+            <div class="hero-panel-sub">
+              Planning a larger gathering or special occasion?
+              Reserve a table in advance to ensure we can seat you together.
+            </div>
+            <div class="hero-panel-row">
+              <span class="hero-panel-label">Occasions</span>
+              <span class="hero-panel-value">Birthdays, work drinks, family meals</span>
+            </div>
+            <div class="hero-panel-row">
+              <span class="hero-panel-label">Dietary</span>
+              <span class="hero-panel-value">Let staff know on arrival</span>
+            </div>
+            <div class="hero-panel-footer">
+              <span>Booking managed via this app</span>
+              <span>Ask staff for today’s specials</span>
+            </div>
+          </div>
+        </aside>
+      </main>
+
+      <section class="hero-main" style="margin-top: 1.6rem;">
+        <h2 class="hero-panel-heading">Breakfast</h2>
+        <p class="hero-panel-sub">Served weekends from 08:00 – 11:30.</p>
+        <ul class="hero-meta" style="flex-direction: column; align-items: flex-start;">
+          <li>Classic Full English · eggs, bacon, sausage, tomato, mushrooms, toast — <strong>£11.50</strong></li>
+          <li>Smoked Salmon & Scrambled Eggs on sourdough — <strong>£10.95</strong></li>
+          <li>Buttermilk Pancakes with berries & maple syrup — <strong>£8.50</strong></li>
+          <li>Granola, yoghurt & seasonal fruit — <strong>£6.95</strong></li>
+        </ul>
+
+        <h2 class="hero-panel-heading" style="margin-top: 1.4rem;">Mains</h2>
+        <p class="hero-panel-sub">Hearty dishes and pub favourites.</p>
+        <ul class="hero-meta" style="flex-direction: column; align-items: flex-start;">
+          <li>Roast Chicken Supreme with rosemary potatoes & seasonal greens — <strong>£16.50</strong></li>
+          <li>Beer-Battered Haddock & Triple-Cooked Chips — <strong>£15.95</strong></li>
+          <li>8oz Sirloin Steak with peppercorn sauce — <strong>£22.00</strong></li>
+          <li>Wild Mushroom & Thyme Risotto (v) — <strong>£14.25</strong></li>
+          <li>Royal Oak Burger with cheddar, pickles & house sauce — <strong>£14.95</strong></li>
+        </ul>
+
+        <h2 class="hero-panel-heading" style="margin-top: 1.4rem;">Desserts</h2>
+        <p class="hero-panel-sub">Finish on something sweet.</p>
+        <ul class="hero-meta" style="flex-direction: column; align-items: flex-start;">
+          <li>Sticky Toffee Pudding with vanilla ice cream — <strong>£7.25</strong></li>
+          <li>Dark Chocolate Tart with crème fraîche — <strong>£7.50</strong></li>
+          <li>Lemon Posset with shortbread — <strong>£6.95</strong></li>
+          <li>Selection of British cheeses, oatcakes & chutney — <strong>£9.50</strong></li>
+        </ul>
+
+        <h2 class="hero-panel-heading" style="margin-top: 1.4rem;">Drinks</h2>
+        <p class="hero-panel-sub">A small taste of what we pour.</p>
+        <ul class="hero-meta" style="flex-direction: column; align-items: flex-start;">
+          <li>House Ale (pint) — <strong>£5.20</strong></li>
+          <li>Guest Craft Beer (pint) — <strong>£5.80</strong></li>
+          <li>Large Glass of House Red/White — <strong>£7.40</strong></li>
+          <li>Prosecco by the glass — <strong>£7.95</strong></li>
+          <li>Soft Drinks (cola, lemonade, orange) — <strong>£3.10</strong></li>
+          <li>Fresh Orange Juice — <strong>£3.60</strong></li>
+          <li>Americano / Tea — <strong>£3.00</strong></li>
+          <li>Latte / Cappuccino — <strong>£3.40</strong></li>
+        </ul>
+
+        <p class="hero-panel-sub" style="margin-top: 1.2rem;">
+          Prices are indicative and may change slightly with seasonal availability.
+          Please see the printed menu in-house for today’s offerings.
+        </p>
+      </section>
     </div>
 
     <footer class="site-footer">

@@ -17,7 +17,9 @@ def menu(request):
 
 @login_required
 def my_bookings(request):
-    bookings = Booking.objects.filter(user=request.user).order_by("-date", "-start_time")
+    bookings = Booking.objects.filter(user=request.user).order_by(
+        "-date", "-start_time"
+    )
     return render(request, "bookings/list.html", {"bookings": bookings})
 
 
