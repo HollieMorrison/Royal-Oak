@@ -14,7 +14,7 @@ urlpatterns = [
     path("bookings/<int:pk>/delete/", views.booking_delete, name="booking_delete"),
     path("staff/", views.staff_dashboard, name="staff_dashboard"),
 
-    # Auth
+    # Auth: login / logout / signup
     path(
         "accounts/login/",
         auth_views.LoginView.as_view(template_name="registration/login.html"),
@@ -24,5 +24,10 @@ urlpatterns = [
         "accounts/logout/",
         auth_views.LogoutView.as_view(),
         name="logout",
+    ),
+    path(
+        "accounts/signup/",
+        views.signup,
+        name="signup",
     ),
 ]

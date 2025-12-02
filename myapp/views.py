@@ -1,6 +1,8 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect, get_object_or_404
+
 from .forms import BookingForm
 from .models import Booking
 
@@ -15,9 +17,7 @@ def menu(request):
 
 @login_required
 def my_bookings(request):
-    bookings = Booking.objects.filter(user=request.user).order_by(
-        "-date", "-start_time"
-    )
+    bookings = Booking.objects.filter(user=request.user).order_by("-date", "-start_time")
     return render(request, "bookings/list.html", {"bookings": bookings})
 
 
@@ -74,3 +74,22 @@ def staff_dashboard(request):
         bookings = bookings.filter(date=date)
 
     return render(request, "staff/dashboard.html", {"bookings": bookings})
+
+
+def signup(request):
+    """
+    Allow a new user to create an account using Django's built-in UserCreationForm.
+    """
+    if request.method == "POST":
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(
+                request,
+                "Your account has been created. Please sign in to make a booking.",
+            )
+            return redirect("login")
+    else:
+        form = UserCreationForm()
+
+    return render(request, "registration/signup.html", {"form": form})

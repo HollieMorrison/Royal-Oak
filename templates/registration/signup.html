@@ -1,0 +1,83 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>The Royal Oak – Create an account</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet">
+  </head>
+  <body>
+    <div class="site-wrapper">
+      <header class="site-header">
+        <div class="brand">
+          <div class="brand-badge">RO</div>
+          <div>
+            <div class="brand-text-title">The Royal Oak</div>
+            <div class="brand-text-subtitle">FINE ALES · SEASONAL DINING</div>
+          </div>
+        </div>
+
+        <nav class="nav-links">
+          <a href="{% url 'home' %}" class="nav-link">Home</a>
+          <a href="{% url 'menu' %}" class="nav-link">Menu</a>
+          {% if user.is_authenticated %}
+            <a href="{% url 'my_bookings' %}" class="nav-link">My bookings</a>
+            {% if user.is_staff %}
+              <a href="{% url 'staff_dashboard' %}" class="nav-link">Staff</a>
+            {% endif %}
+            <a href="{% url 'logout' %}" class="nav-link nav-link--primary">Logout</a>
+          {% else %}
+            <a href="{% url 'login' %}" class="nav-link">Login</a>
+            <a href="{% url 'signup' %}" class="nav-link nav-link--primary">Sign up</a>
+          {% endif %}
+        </nav>
+      </header>
+
+      {% if messages %}
+      <ul class="flash-messages" aria-live="polite">
+        {% for message in messages %}
+          <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+
+      <main class="booking-main-wrapper">
+        <section class="booking-main-card">
+          <div class="hero-pill">
+            <span class="hero-pill-dot"></span>
+            <span>Create an account</span>
+          </div>
+
+          <h1>Join The Royal Oak</h1>
+
+          <p class="booking-intro">
+            Create an account to book tables, view your upcoming reservations,
+            and keep track of your visits to The Royal Oak.
+          </p>
+
+          {% if form.errors %}
+          <ul class="flash-messages">
+            <li class="error">Please correct the errors below and try again.</li>
+          </ul>
+          {% endif %}
+
+          <form method="post" class="booking-form">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Create account</button>
+          </form>
+
+          <p class="booking-back-link">
+            Already have an account?
+            <a href="{% url 'login' %}">Sign in instead</a>.
+          </p>
+        </section>
+      </main>
+    </div>
+
+    <footer class="site-footer">
+      &copy; {% now "Y" %} The Royal Oak. Secure accounts for guests and staff.
+    </footer>
+  </body>
+</html>
