@@ -1,0 +1,46 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>The Royal Oak – Menu</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet">
+  </head>
+  <body>
+    <div class="site-wrapper">
+      <header class="site-header">
+        <div class="brand">
+          <div class="brand-badge">RO</div>
+          <div>
+            <div class="brand-text-title">The Royal Oak</div>
+            <div class="brand-text-subtitle">FINE ALES · SEASONAL DINING</div>
+          </div>
+        </div>
+
+        <nav class="nav-links">
+          <a href="{% url 'home' %}" class="nav-link">Home</a>
+          <a href="{% url 'menu' %}" class="nav-link nav-link--primary">Menu</a>
+          <a href="{% url 'my_bookings' %}" class="nav-link">My bookings</a>
+          {% if user.is_staff %}
+            <a href="{% url 'staff_dashboard' %}" class="nav-link">Staff</a>
+          {% endif %}
+          {% if user.is_authenticated %}
+            <a href="{% url 'logout' %}" class="nav-link">Logout</a>
+          {% else %}
+            <a href="{% url 'login' %}" class="nav-link">Login</a>
+          {% endif %}
+        </nav>
+      </header>
+
+      <!-- rest of your existing menu content stays the same -->
+      <!-- (I won't rewrite the whole thing here since we already did that above) -->
+      {% comment %} Keep the existing menu sections here {% endcomment %}
+      {% include "menu_body_only.html" %}
+    </div>
+
+    <footer class="site-footer">
+      &copy; {% now "Y" %} The Royal Oak. Menu items and prices subject to seasonal change.
+    </footer>
+  </body>
+</html>

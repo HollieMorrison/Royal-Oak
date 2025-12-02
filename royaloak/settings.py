@@ -164,3 +164,11 @@ if not DEBUG:
 # Default primary key field type
 # -----------------------------
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# Redirect unauthenticated users to Django admin login
+LOGIN_URL = "/admin/login/"
+
+# Authentication redirects
+LOGIN_URL = "login"
+LOGIN_REDIRECT_URL = "home"
+LOGOUT_REDIRECT_URL = "home"
