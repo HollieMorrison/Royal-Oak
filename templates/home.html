@@ -26,6 +26,7 @@
             <a href="{% url 'staff_dashboard' %}" class="nav-link">Staff</a>
           {% endif %}
           {% if user.is_authenticated %}
+            <a href="{% url 'account' %}" class="nav-link">Account</a>
             <a href="{% url 'logout' %}" class="nav-link">Logout</a>
             <a href="{% url 'reserve' %}" class="nav-link nav-link--primary">Reserve</a>
           {% else %}
