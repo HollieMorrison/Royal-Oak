@@ -1,0 +1,82 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>The Royal Oak – My account</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet">
+  </head>
+  <body>
+    <div class="site-wrapper">
+      <header class="site-header">
+        <div class="brand">
+          <div class="brand-badge">RO</div>
+          <div>
+            <div class="brand-text-title">The Royal Oak</div>
+            <div class="brand-text-subtitle">FINE ALES · SEASONAL DINING</div>
+          </div>
+        </div>
+
+        <nav class="nav-links">
+          <a href="{% url 'home' %}" class="nav-link">Home</a>
+          <a href="{% url 'menu' %}" class="nav-link">Menu</a>
+          <a href="{% url 'my_bookings' %}" class="nav-link">My bookings</a>
+          {% if user.is_staff %}
+            <a href="{% url 'staff_dashboard' %}" class="nav-link">Staff</a>
+          {% endif %}
+          {% if user.is_authenticated %}
+            <a href="{% url 'logout' %}" class="nav-link">Logout</a>
+          {% else %}
+            <a href="{% url 'login' %}" class="nav-link">Login</a>
+            <a href="{% url 'signup' %}" class="nav-link">Sign up</a>
+          {% endif %}
+        </nav>
+      </header>
+
+      {% if messages %}
+      <ul class="flash-messages" aria-live="polite">
+        {% for message in messages %}
+          <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+            {{ message }}
+          </li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+
+      <main class="booking-main-wrapper">
+        <section class="booking-main-card">
+          <div class="hero-pill">
+            <span class="hero-pill-dot"></span>
+            <span>Your account</span>
+          </div>
+
+          <h1>Hello, {{ user.username }}</h1>
+
+          <p class="booking-intro">
+            You are currently signed in to The Royal Oak booking system.
+            From here you can manage your reservations or sign out of your account.
+          </p>
+
+          <div class="booking-meta-row">
+            <span><span class="booking-meta-dot"></span>Signed in as: {{ user.email|default:user.username }}</span>
+            <span><span class="booking-meta-dot"></span>Bookings linked to this account only</span>
+          </div>
+
+          <p class="booking-back-link" style="margin-top: 1rem;">
+            <a href="{% url 'my_bookings' %}">View my bookings &rarr;</a>
+          </p>
+
+          <form method="post" action="{% url 'logout' %}" class="booking-form" style="margin-top: 1.2rem;">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary">Log out</button>
+          </form>
+        </section>
+      </main>
+    </div>
+
+    <footer class="site-footer">
+      &copy; {% now "Y" %} The Royal Oak. Secure accounts for guests and staff.
+    </footer>
+  </body>
+</html>
