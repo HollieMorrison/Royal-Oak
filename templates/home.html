@@ -1,120 +1,118 @@
+{% extends "base.html" %}
 {% load static %}
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>The Royal Oak – Reservations</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="{% static 'css/styles.css' %}" rel="stylesheet">
-  </head>
-  <body>
-    <div class="site-wrapper">
-      <header class="site-header">
-        <div class="brand">
-          <div class="brand-badge">RO</div>
-          <div>
-            <div class="brand-text-title">The Royal Oak</div>
-            <div class="brand-text-subtitle">FINE ALES · SEASONAL DINING</div>
-          </div>
-        </div>
 
-        <nav class="nav-links">
-          <a href="{% url 'home' %}" class="nav-link">Home</a>
-          <a href="{% url 'menu' %}" class="nav-link">Menu</a>
-          <a href="{% url 'my_bookings' %}" class="nav-link">My bookings</a>
-          {% if user.is_staff %}
-            <a href="{% url 'staff_dashboard' %}" class="nav-link">Staff</a>
-          {% endif %}
-          {% if user.is_authenticated %}
-            <a href="{% url 'account' %}" class="nav-link">Account</a>
-            <a href="{% url 'logout' %}" class="nav-link">Logout</a>
-            <a href="{% url 'reserve' %}" class="nav-link nav-link--primary">Reserve</a>
-          {% else %}
-            <a href="{% url 'login' %}" class="nav-link">Login</a>
-            <a href="{% url 'signup' %}" class="nav-link nav-link--primary">Sign up</a>
-          {% endif %}
-        </nav>
-      </header>
+{% block title %}Home{% endblock %}
 
-      {% if messages %}
-      <ul class="flash-messages" aria-live="polite">
-        {% for message in messages %}
-          <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-        {% endfor %}
-      </ul>
-      {% endif %}
+{% block content %}
 
-      <main class="hero">
-        <section class="hero-main">
-          <div class="hero-pill">
-            <span class="hero-pill-dot"></span>
-            <span>Reservations</span>
-          </div>
-
-          <h1 class="hero-title">
-            A <span>classic English inn</span> with a table waiting just for you.
-          </h1>
-
-          <p class="hero-subtitle">
-            Nestled in the heart of town, The Royal Oak pairs seasonal dishes with
-            cask ales and candlelit corners. Use this app to reserve your table,
-            review your bookings, and arrive knowing everything is taken care of.
-          </p>
-
-          <div class="hero-actions">
-            {% if user.is_authenticated %}
-              <a href="{% url 'reserve' %}" class="btn btn-primary">
-                Reserve a table
-              </a>
-              <a href="{% url 'my_bookings' %}" class="btn btn-ghost">
-                View my bookings
-              </a>
-            {% else %}
-              <a href="{% url 'login' %}" class="btn btn-primary">
-                Log in to book
-              </a>
-              <a href="{% url 'signup' %}" class="btn btn-ghost">
-                Create an account
-              </a>
-            {% endif %}
-          </div>
-
-          <div class="hero-meta">
-            <span>Service: Mon–Sun · 12:00 – 22:00</span>
-            <span>Bookings recommended for Fridays & Saturdays</span>
-          </div>
-        </section>
-
-        <aside class="hero-side">
-          <div class="hero-panel">
-            <div class="hero-panel-heading">This evening at The Oak</div>
-            <div class="hero-panel-sub">
-              A warm fire, low lighting, and simple food done well.
-              Reservations help us keep things relaxed and ready for you.
-            </div>
-            <div class="hero-panel-row">
-              <span class="hero-panel-label">Max party size</span>
-              <span class="hero-panel-value">Up to 8 guests</span>
-            </div>
-            <div class="hero-panel-row">
-              <span class="hero-panel-label">Booking window</span>
-              <span class="hero-panel-value">Same-day online bookings*</span>
-            </div>
-            <div class="hero-panel-row">
-              <span class="hero-panel-label">Walk-ins</span>
-              <span class="hero-panel-value">Always welcome at the bar</span>
-            </div>
-            <div class="hero-panel-footer">
-              <span>*Subject to availability</span>
-              <span>Managed securely via login</span>
-            </div>
-          </div>
-        </aside>
-      </main>
+<div class="site-wrapper">
+  <header class="site-header">
+    <div class="brand">
+      <div class="brand-badge">RO</div>
+      <div>
+        <div class="brand-text-title">The Royal Oak</div>
+        <div class="brand-text-subtitle">FINE ALES · SEASONAL DINING</div>
+      </div>
     </div>
 
-    <footer class="site-footer">
-      &copy; {% now "Y" %} The Royal Oak. Reservations managed through this system for guests and staff.
-    </footer>
-  </body>
-</html>
+    <nav class="nav-links">
+      <a href="{% url 'home' %}" class="nav-link">Home</a>
+      <a href="{% url 'menu' %}" class="nav-link">Menu</a>
+      <a href="{% url 'my_bookings' %}" class="nav-link">My bookings</a>
+
+      {% if user.is_staff %}
+        <a href="{% url 'staff_dashboard' %}" class="nav-link">Staff</a>
+      {% endif %}
+
+      {% if user.is_authenticated %}
+        <a href="{% url 'account' %}" class="nav-link">Account</a>
+        <a href="{% url 'reserve' %}" class="nav-link nav-link--primary">Reserve</a>
+      {% else %}
+        <a href="{% url 'login' %}" class="nav-link">Login</a>
+        <a href="{% url 'signup' %}" class="nav-link nav-link--primary">Sign up</a>
+      {% endif %}
+    </nav>
+  </header>
+
+  {% if messages %}
+  <ul class="flash-messages" aria-live="polite">
+    {% for message in messages %}
+      <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+
+  <main class="hero">
+    <section class="hero-main">
+      <div class="hero-pill">
+        <span class="hero-pill-dot"></span>
+        <span>Reservations</span>
+      </div>
+
+      <h1 class="hero-title">
+        A <span>classic English inn</span> with a table waiting just for you.
+      </h1>
+
+      <p class="hero-subtitle">
+        Nestled in the heart of town, The Royal Oak pairs seasonal dishes with
+        cask ales and candlelit corners. Use this app to reserve your table,
+        review your bookings, and arrive knowing everything is taken care of.
+      </p>
+
+      <div class="hero-actions">
+        {% if user.is_authenticated %}
+          <a href="{% url 'reserve' %}" class="btn btn-primary">
+            Reserve a table
+          </a>
+          <a href="{% url 'my_bookings' %}" class="btn btn-ghost">
+            View my bookings
+          </a>
+        {% else %}
+          <a href="{% url 'login' %}" class="btn btn-primary">
+            Log in to book
+          </a>
+          <a href="{% url 'signup' %}" class="btn btn-ghost">
+            Create an account
+          </a>
+        {% endif %}
+      </div>
+
+      <div class="hero-meta">
+        <span>Service: Mon–Sun · 12:00 – 22:00</span>
+        <span>Bookings recommended for Fridays & Saturdays</span>
+      </div>
+    </section>
+
+    <aside class="hero-side">
+      <div class="hero-panel">
+        <div class="hero-panel-heading">This evening at The Oak</div>
+        <div class="hero-panel-sub">
+          A warm fire, low lighting, and simple food done well.
+          Reservations help us keep things relaxed and ready for you.
+        </div>
+        <div class="hero-panel-row">
+          <span class="hero-panel-label">Max party size</span>
+          <span class="hero-panel-value">Up to 8 guests</span>
+        </div>
+        <div class="hero-panel-row">
+          <span class="hero-panel-label">Booking window</span>
+          <span class="hero-panel-value">Same-day online bookings*</span>
+        </div>
+        <div class="hero-panel-row">
+          <span class="hero-panel-label">Walk-ins</span>
+          <span class="hero-panel-value">Always welcome at the bar</span>
+        </div>
+        <div class="hero-panel-footer">
+          <span>*Subject to availability</span>
+          <span>Managed securely via login</span>
+        </div>
+      </div>
+    </aside>
+  </main>
+</div>
+
+<footer class="site-footer">
+  &copy; {% now "Y" %} The Royal Oak. Reservations managed through this system for guests and staff.
+</footer>
+
+{% endblock %}

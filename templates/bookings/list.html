@@ -3,7 +3,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>The Royal Oak – Book a Table</title>
+    <title>The Royal Oak – My bookings</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="{% static 'css/styles.css' %}" rel="stylesheet">
   </head>
@@ -21,7 +21,7 @@
         <nav class="nav-links">
           <a href="{% url 'home' %}" class="nav-link">Home</a>
           <a href="{% url 'menu' %}" class="nav-link">Menu</a>
-          <a href="{% url 'my_bookings' %}" class="nav-link">My bookings</a>
+          <a href="{% url 'my_bookings' %}" class="nav-link nav-link--primary">My bookings</a>
           {% if user.is_staff %}
             <a href="{% url 'staff_dashboard' %}" class="nav-link">Staff</a>
           {% endif %}
@@ -37,7 +37,9 @@
       {% if messages %}
       <ul class="flash-messages" aria-live="polite">
         {% for message in messages %}
-          <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+          <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+            {{ message }}
+          </li>
         {% endfor %}
       </ul>
       {% endif %}
@@ -46,38 +48,37 @@
         <section class="booking-main-card">
           <div class="hero-pill">
             <span class="hero-pill-dot"></span>
-            <span>Your reservation</span>
+            <span>My bookings</span>
           </div>
 
-          <h1>Reserve a table</h1>
+          <h1>Your reservations</h1>
 
           <p class="booking-intro">
-            Choose your date, time, party size and preferred table.
-            You can review or update your booking any time from the
-            <strong>My bookings</strong> page.
+            Here are the reservations linked to your account. You can edit or
+            cancel upcoming bookings from this page.
           </p>
 
-          {% if form.non_field_errors %}
-          <ul class="flash-messages">
-            {% for error in form.non_field_errors %}
-              <li class="error">{{ error }}</li>
-            {% endfor %}
-          </ul>
+          {% if bookings %}
+            <ul class="hero-meta" style="flex-direction: column; align-items: flex-start;">
+              {% for booking in bookings %}
+                <li>
+                  <strong>{{ booking.date }} at {{ booking.time }}</strong>
+                  — {{ booking.table|default:"Table" }}
+                  · {{ booking.party_size }} guests
+                  <br>
+                  <a href="{% url 'booking_edit' booking.pk %}">Edit</a> ·
+                  <a href="{% url 'booking_delete' booking.pk %}">Cancel</a>
+                </li>
+              {% endfor %}
+            </ul>
+          {% else %}
+            <p class="booking-intro">
+              You don't have any bookings yet.
+            </p>
           {% endif %}
 
-          <form method="post" class="booking-form">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit" class="btn btn-primary">Save booking</button>
-          </form>
-
-          <div class="booking-meta-row">
-            <span><span class="booking-meta-dot"></span>Restaurant tables only.</span>
-            <span><span class="booking-meta-dot"></span>For large groups, contact staff.</span>
-          </div>
-
           <p class="booking-back-link">
-            <a href="{% url 'my_bookings' %}">&larr; Back to my bookings</a>
+            <a href="{% url 'reserve' %}">&rarr; Make a new booking</a>
           </p>
         </section>
       </main>

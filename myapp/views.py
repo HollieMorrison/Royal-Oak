@@ -18,7 +18,8 @@ def menu(request):
 @login_required
 def my_bookings(request):
     bookings = Booking.objects.filter(user=request.user).order_by(
-        "-date", "-start_time"
+        "-date",
+        "-time",
     )
     return render(request, "bookings/list.html", {"bookings": bookings})
 
@@ -70,7 +71,7 @@ def is_staff_user(user):
 @user_passes_test(is_staff_user)
 def staff_dashboard(request):
     date = request.GET.get("date")
-    bookings = Booking.objects.order_by("date", "start_time")
+    bookings = Booking.objects.order_by("date", "time")
 
     if date:
         bookings = bookings.filter(date=date)
@@ -100,6 +101,6 @@ def signup(request):
 @login_required
 def account(request):
     """
-    Simple account page for logged-in users with a logout link.
+    Simple account page for logged-in users with a logout option.
     """
     return render(request, "account.html")

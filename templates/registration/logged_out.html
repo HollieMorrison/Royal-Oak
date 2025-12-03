@@ -1,0 +1,53 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>The Royal Oak – Signed out</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet">
+  </head>
+  <body>
+    <div class="site-wrapper">
+      <header class="site-header">
+        <div class="brand">
+          <div class="brand-badge">RO</div>
+          <div>
+            <div class="brand-text-title">The Royal Oak</div>
+            <div class="brand-text-subtitle">FINE ALES · SEASONAL DINING</div>
+          </div>
+        </div>
+
+        <nav class="nav-links">
+          <a href="{% url 'home' %}" class="nav-link nav-link--primary">Home</a>
+          <a href="{% url 'menu' %}" class="nav-link">Menu</a>
+          <a href="{% url 'login' %}" class="nav-link">Sign in</a>
+        </nav>
+      </header>
+
+      <main class="booking-main-wrapper">
+        <section class="booking-main-card">
+          <div class="hero-pill">
+            <span class="hero-pill-dot"></span>
+            <span>Signed out</span>
+          </div>
+
+          <h1>You’ve been signed out</h1>
+
+          <p class="booking-intro">
+            You are now logged out of The Royal Oak booking system.
+            You can sign in again at any time to manage your reservations.
+          </p>
+
+          <p class="booking-back-link">
+            <a href="{% url 'home' %}">&larr; Back to home</a>
+          </p>
+        </section>
+      </main>
+    </div>
+
+    <footer class="site-footer">
+      &copy; {% now "Y" %} The Royal Oak. Secure access for guests and staff.
+    </footer>
+  </body>
+</html>
