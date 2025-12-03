@@ -114,10 +114,13 @@ USE_TZ = True
 # -----------------------------
 # Static files (CSS, JS, Images)
 # -----------------------------
-STATIC_URL = "/static/"
-STATIC_ROOT = BASE_DIR / "staticfiles"  # for collectstatic (production)
-# Optional local static directory (safe if folder doesn't exist)
-STATICFILES_DIRS = [BASE_DIR / "static"] if (BASE_DIR / "static").exists() else []
+STATIC_URL = "static/"
+
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
+
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
 # WhiteNoise: serve compressed, versioned static files in production
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
@@ -169,6 +172,11 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 LOGIN_URL = "/admin/login/"
 
 # Authentication redirects
+LOGIN_URL = "login"
+LOGIN_REDIRECT_URL = "home"
+LOGOUT_REDIRECT_URL = "home"
+
+# Authentication settings
 LOGIN_URL = "login"
 LOGIN_REDIRECT_URL = "home"
 LOGOUT_REDIRECT_URL = "home"
