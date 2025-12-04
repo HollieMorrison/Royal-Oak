@@ -1,245 +1,340 @@
-# Royal Oak
+# Royal Oak Restaurant Booking System
 
-The Royal Oak Restraunt booking app is a simple and easy to use website that displays the menu and allows customers the ability to book a table reservation and delete it. 
+Royal Oak is a full-stack restaurant booking application for a traditional pub/restaurant.
 
-![Am i repsonsive](./assets/readme/am-i-responsive-image.png)
-[View Royal Oak live project here](https://github.com/HollieMorrison/Royal-Oak)
+Guests can browse the menu and opening hours, create an account, and reserve a table for a specific date, time and party size. Logged-in users can view and manage their own bookings, while staff can manage all bookings via the Django admin.
+
+![Am I Responsive screenshot](./assets/readme/am-i-responsive.png)
+
+[View the live Royal Oak project here](https://royal-oak-app-dfc55386b7fe.herokuapp.com/)  
+[View the GitHub repository here](https://github.com/HollieMorrison/Royal-Oak)
+
+---
 
 ## Table of contents :
 
 ### [User Experience (UX)](#user-experience-ux-1)
 * [User Stories](#user-stories)
-### [Features](#features)
+* [Agile Methodology](#agile-methodology)
+### [Features](#features-1)
 * [Existing Features](#existing-features)
+* [Role-based Access & Authentication](#role-based-access--authentication)
 ### [Features Left To Implement](#features-left-to-implement-1)
 ### [Design](#design-1)
+### [Data Model](#data-model-1)
 ### [Technologies Used](#technologies-used-1)
-### [frameworks](#frameworks-libraries-programs-used-1)
+### [Frameworks, Libraries & Programs Used](#frameworks-libraries--programs-used-1)
 ### [Testing](#testing-1)
 * [Validation Results](#validation-results)
 * [Manual Testing](#manual-testing)
-* [Lighthouse Report](#lighthouse-report)
-### [Deployment and local development](#deployment-and-local-development-1)
-* [GitHub Pages](#github-pages)
-* [Forking the GitHub Repository](#forking-the-github-repository)
-* [Local Clone](#local-clone)
+* [Future Testing Improvements](#future-testing-improvements)
+### [Deployment and Local Development](#deployment-and-local-development-1)
+* [Local Development](#local-development)
+* [Heroku Deployment](#heroku-deployment)
+### [Security & Environment Variables](#security--environment-variables)
 ### [Credits](#credits-1)
 ### [Acknowledgements](#acknowledgements-1)
+
 ---
 
 ## User Experience (UX)
 
-This site is used to look at the restaurant  menu and book a table.
+The goal of Royal Oak is to provide a simple, friendly way for customers to:
 
-There is clear navigation of the website and is easy for anyone to use.
+* Discover the Royal Oak pub/restaurant.
+* View the menu and key information (location, contact, opening times).
+* Quickly reserve a table for a specific date, time and party size.
+* Manage their own bookings without needing to phone the venue.
 
-Users can create an account and login.
+For the site owner / restaurant staff, the app:
 
-Users can create a booking and cancel it.
+* Collects online bookings in a central database.
+* Ensures only authenticated users can create and manage bookings.
+* Provides staff access via the Django admin to review, edit or cancel bookings.
+
+The layout focuses on clear navigation, readable text, and mobile-friendly pages so users can easily book a table on any device.
 
 ### User Stories
 
-*First-time visitor goals
-  * To look at the menu and about page.
-  * To navigate the site easily.
-  * To create an account and login.
-  * Create a booking.
-  * Cancel a booking.
-- - -
+**First-time visitor goals**
+* As a first-time visitor, I want to understand what the Royal Oak is and what it offers.
+* As a first-time visitor, I want to view the menu and opening hours before I decide to book.
+* As a first-time visitor, I want to sign up for an account so I can make a booking online.
+
+**Returning visitor goals**
+* As a returning user, I want to log in quickly so I can see my existing bookings.
+* As a returning user, I want to edit or cancel a booking if my plans change.
+* As a returning user, I want to see a confirmation message when I create or update a booking.
+
+**Site owner / staff goals**
+* As the site owner, I want bookings to be stored in a database so they are not lost.
+* As staff, I want to see all bookings in the admin area so I can manage the restaurant floor.
+* As the site owner, I want only logged-in users to be able to create bookings so I can reduce spam and fake entries.
+
+### Agile Methodology
+
+Agile principles were followed using:
+
+* **GitHub Issues** – used to create user stories and track bugs and enhancements.
+* **Labels** such as “feature”, “bug”, and priority tags (must-have, should-have, etc.) to organise work.
+* **Milestones / project board** – used to group issues into deliverable phases (MVP, additional features, polish).
+
+Each user story typically followed:
+
+1. Create issue with a clear user story and acceptance criteria.
+2. Implement the feature in a dedicated branch.
+3. Test locally (and on the deployed app where needed).
+4. Merge changes into the main branch.
+
+---
 
 ## Features
 
-* Home page with navigation to booking pages.
-* Menu of all items served at restaurant.
-* Account creation and Login.
-* Be able to book a reservation and cancel it.
+### Existing Features
 
-![Index.html]()
-![Stories.html]()
-![Contact.html]()
+**Home Page**
+* Introduction to the Royal Oak pub/restaurant.
+* Clear navigation bar: Home, Menu, Bookings, Login/Signup.
+* Call-to-action button for **Reserve a Table**.
+
+**Menu Page**
+* Static menu preview with example dishes.
+* Clean and accessible layout.
+
+**Signup / Login**
+* Custom signup page using Django Authentication.
+* Login page for existing users.
+* Validation for both forms.
+
+**Booking Form**
+* Login-protected reservation page.
+* Form fields include:
+  * Name
+  * Email
+  * Phone
+  * Date
+  * Time
+  * Number of guests
+  * Special requests (optional)
+* Server-side validation and confirmation messages.
+
+**Bookings List**
+* Authenticated users can view their own bookings.
+* List shows date, time, party size and status.
+
+**Responsive Layout**
+* Works across desktop, tablet, and mobile screens.
+* Tested using DevTools responsive view.
+
+### Role-based Access & Authentication
+
+* **Anonymous users**  
+  * Can browse public pages only.  
+  * Are redirected to login when attempting restricted actions.
+
+* **Authenticated users**  
+  * Can reserve tables.  
+  * Can view/manage their bookings.
+
+* **Superusers / staff**  
+  * Access the Django admin interface.  
+  * Can view, edit, delete any booking.
+
+---
+
+## Features Left To Implement
+
+* Email confirmation for bookings.
+* Realistic table-capacity handling.
+* Staff dashboard for today’s bookings.
+* User profile editing.
+* More advanced JavaScript validation.
+
+---
 
 ## Design
 
-* Simple design with basic colors and fonts for accessibility and simplicity on the eyes.
-* Curved edges on home page to relax the eyes and not appear so harsh.
+* Warm and inviting colour palette inspired by traditional pubs.
+* Clean, readable fonts for headings and body text.
+* Consistent spacing and simple structure.
+* Logical navigation links on every page.
+* Clear feedback via Django messages.
 
+---
 
+## Data Model
+
+The project includes a custom **Booking** model with fields for:
+
+* `name`
+* `email`
+* `phone`
+* `date`
+* `time`
+* `guests`
+* `special_requests`
+* `user` (ForeignKey to authenticated User)
+* `created_at` / `updated_at`
+
+This supports relational storage, filtering by user, and admin management.
+
+---
 
 ## Technologies Used
 
-* [HTML5]((https://en.wikipedia.org/wiki/HTML5))
-* [CSS3]((https://en.wikipedia.org/wiki/CSS))
-* [Python]()
+* HTML5  
+* CSS3  
+* JavaScript  
+* Python 3  
+* Django  
+* SQLite (development)  
+* PostgreSQL (production)  
+
+---
 
 ## Frameworks, Libraries & Programs Used
 
-* [Github](https://github.com/)
-    * Deployment of the website and storing the files online.
-* [Am I Responsive](https://ui.dev/amiresponsive?url=https://holliemorrison.github.io/superfoods/)
-    * Mockup picture for the README file.
-* [Visual Studio Code](https://code.visualstudio.com/)
-*[Django]()
+* **Django** – main framework
+* **Gunicorn** – production server
+* **WhiteNoise** – static file serving
+* **dj-database-url** – database configuration
+* **Git** – version control
+* **GitHub** – remote repository & Agile tools
+* **Heroku** – hosting
+* **VS Code** – code editor
+* **Chrome DevTools** – debugging & testing
 
 ---
 
 ## Testing
 
-The W3C Markup Validator and W3C CSS Validator services were used to validate every page of the project to ensure there were no errors.
+### Validation Results
 
- * [W3C Markup Validtor](https://validator.w3.org/)
- * [W3C CSS Validator](https://jigsaw.w3.org/css-validator/)
+**HTML**  
+Checked with W3C Validator. Minor fixes applied.
 
-### Validation results
+**CSS**  
+Checked with W3C CSS Validator. Validated successfully.
 
-<details>
-<summary>index.html
-</summary>
+**Python (PEP8)**  
+Checked with PEP8 tools. Code formatted to standards.
 
-![Index Page validation result](./assets/readme/html-validation.png)
-</details>
-<details>
-<summary>stories.html
-</summary>
+**JavaScript**  
+Console error inspection and manual behaviour testing.
 
-![Contact page validation result](./assets/readme/html-validation.png)
-</details>
-<details>
-<summary>contact.html
-</summary>
-
-![Thanks page validation result](./assets/readme/html-validation.png)
-</details>
-<details>
-<summary>thanks.html
-</summary>
-
-
-![CSS validation result](./assets/readme/html-validation.png)
-</details>
-
-<summary>contact.css
-</summary>
-
-![CSS validation result](./assets/readme/css-validation.png)
-</details>
-
-<summary>home.css
-</summary>
-
-![CSS validation result](./assets/readme/css-validation.png)
-</details>
+---
 
 ### Manual Testing
 
-* The website was tested on Google Chrome, Microsoft Edge, and Opera browsers.
-* The website was viewed on a desktop computer, laptop, and Samsung Galaxy A52 mobile phone.
-* A large amount of testing was done to ensure links between pages are working correctly on all pages.
-* Family and friends were asked to review the website for a better understanding of the user experience.
-* Dev Tools was used to test how the site looks on various screen sizes.
+| Feature | Test | Result |
+|--------|------|--------|
+| Home page loads | Visit `/` | Pass |
+| Menu page | Visit `/menu/` | Pass |
+| Signup | Valid/Invalid form inputs | Pass |
+| Login | Valid/Invalid login | Pass |
+| Auth protection | Restricted pages redirect | Pass |
+| Create booking | Submit booking | Pass |
+| View bookings | Shows user-specific bookings | Pass |
+| Admin | View/edit bookings | Pass |
+| Responsive layout | Mobile/Tablet tests | Pass |
 
-### Lighthouse Report
+### Future Testing Improvements
 
-#### Mobile analysis
-<details>
-<summary>Index Page
-</summary>
-
-![Index Page lighthouse report](./assets/readme/index.html-lighthouse-mobile.png)
-</details>
-<details>
-<summary>Stories Page
-</summary>
-
-![Stories Page lighthouse report](./assets/readme/stories.html-lighthouse-mobile.png)
-</details>
-<details>
-<summary>Contact Page
-</summary>
-
-![Contact Page lighthouse report](./assets/readme/contact.html-lighthouse-mobile.png)
-</details>
-<details>
-<summary>Thanks Page
-</summary>
-
-![Thanks Page lighthouse report](./assets/readme/thanks.html-lighthouse-mobile.png)
-</details>
-
-#### Desktop analysis
-<details>
-<summary>Index Page
-</summary>
-
-![Index Page lighthouse report](./assets/readme/index.html-lighthouse-desktop.png)
-</details>
-<details>
-<summary>Stories
-</summary>
-
-![Stories lighthouse report](./assets/readme/stories.html-lighthouse-desktop.png)
-</details>
-<details>
-<summary>Contact Page
-</summary>
-
-![Contact Page lighthouse report](./assets/readme/contact.html-lighthouse-desktop.png)
-</details>
-<details>
-<summary>Thanks Page
-</summary>
-
-![Thanks Page lighthouse report](./assets/readme/thanks.html-lighthouse-desktop.png)
-</details>
+* Add Django unit tests for models, forms and views.
+* Add JS tests using Jest.
+* Add automated CI pipeline.
 
 ---
 
-## Deployment and local development
+## Deployment and Local Development
 
-### GitHub Pages
+### Local Development
 
-GitHub Pages used to deploy live version of the website.
-1. Log in to GitHub and locate [GitHub Repository Royal Oak](https://github.com/HollieMorrison/Royal-Oak)
-2. At the top of the Repository(not the main navigation) locate "Settings" button on the menu.
-3. Scroll down the Settings page until you locate "GitHub Pages".
-4. Under "Source", click the dropdown menu "None" and select "Main" and click "Save".
-5. The page will automatically refresh.
-6. Scroll back to locate the now-published site [link](https://github.com/HollieMorrison/Royal-Oak) in the "GitHub Pages" section.
+1. Clone repo:  
+   ```bash
+   git clone https://github.com/HollieMorrison/Royal-Oak.git
 
-### Forking the GitHub Repository
+### Create virtual environment 
 
-By forking the repository, we make a copy of the original repository on our GitHub account to view and change without affecting the original repository by using these steps:
+1. python -m venv .venv
 
-1. Log in to GitHub and locate [GitHub Repository Royal Oak](https://github.com/HollieMorrison/Royal-Oak)
-2. At the top of the Repository(under the main navigation) locate "Fork" button.
-3. Now you should have a copy of the original repository in your GitHub account.
+### Activate:
 
-### Local Clone
+Windows PowerShell: .venv\Scripts\Activate
 
-1. Log in to GitHub and locate [GitHub Repository Royal Oak](https://github.com/HollieMorrison/Royal-Oak)
-2. Under the repository name click "Clone or download"
-3. Click on the code button, select clone with HTTPS, SSH or GitHub CLI and copy the link shown.
-4. Open Git Bash
-5. Change the current working directory to the location where you want the cloned directory to be made.
-6. Type `git clone` and then paste The URL copied in the step 3.
-7. Press Enter and your local clone will be created.
+Git Bash/Mac: source .venv/bin/activate
 
----
-## Credits
+Install requirements:
 
-### Code
- * Understanding the concept of flexbox was learned through [Complete Guide to Flexbox](https://css-tricks.com/snippets/css/a-guide-to-flexbox/)
- * The README template was helpfully provided by [Code Institute (template)](https://github.com/Code-Institute-Solutions/SampleREADME)
+pip install -r requirements.txt
 
-### Content
- 
 
-### Media 
+### Create .env file:
 
- * [Food Photos](https://unsplash.com/) Images of food from unsplash.
- * [Image compressor](https://imagecompressor.com/) Resizing images.
----
+SECRET_KEY=your-secret-key
+DEBUG=True
+ALLOWED_HOSTS=localhost,127.0.0.1
 
-## Acknowledgements
 
- * My mentor Mitko Bachvarov provided helpful feedback regarding improvements and criteria.
- * Slack community for encouragement and information.
+### Migrate:
+
+python manage.py migrate
+
+
+### Run:
+
+python manage.py runserver
+
+### Heroku Deployment
+
+Create app in Heroku dashboard.
+Add Heroku Postgres add-on.
+Add config vars:
+SECRET_KEY
+DEBUG=False
+ALLOWED_HOSTS
+DATABASE_URL (auto-added)
+Connect GitHub repo or push via Git.
+
+### Run migrations:
+
+heroku run python manage.py migrate
+
+
+### Create superuser:
+
+heroku run python manage.py createsuperuser
+Security & Environment Variables
+SECRET_KEY kept in .env and Heroku config vars.
+DEBUG disabled on production.
+No secrets stored in GitHub.
+Database credentials stored securely via DATABASE_URL.
+
+
+### Credits
+
+Django documentation
+
+Code Institute sample README template
+
+Tutorials on Django forms, authentication, and deployment
+
+Content
+
+Menu items and wording adapted for a fictional restaurant.
+
+Media
+
+Images from free stock sites.
+
+Responsive mockups via “Am I Responsive”.
+
+Acknowledgements
+
+Code Institute mentor Mitko for guidance.
+
+Slack community for support.
+
+Friends/family who helped test the app.
+
+
