@@ -1,10 +1,8 @@
-"""
-Django settings for royaloak project.
-"""
-
 import os
 from pathlib import Path
+
 import dj_database_url
+import environ  # make sure django-environ is installed
 
 
 # -----------------------------
@@ -12,23 +10,37 @@ import dj_database_url
 # -----------------------------
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Initialize env and read .env (if present)
 env = environ.Env(
     DEBUG=(bool, False),
 )
+# Read .env if present (local dev)
 environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
 
 # -----------------------------
 # Core settings
 # -----------------------------
 SECRET_KEY = env("SECRET_KEY", default="!!!replace-me-in-.env!!!")
+
 DEBUG = env.bool("DEBUG", default=False)
 
-ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=["localhost", "127.0.0.1"])
+ALLOWED_HOSTS = env.list(
+    "ALLOWED_HOSTS",
+    default=[
+        "localhost",
+        "127.0.0.1",
+        # add your Heroku hosts here (or via .env)
+        "royal-oak-app.herokuapp.com",
+        "royal-oak-app-dfc55386b7fe.herokuapp.com",
+    ],
+)
 
-# If deploying (Render/Heroku/etc), put your origin(s) in .env, e.g.:
-# CSRF_TRUSTED_ORIGINS=https://your-app.onrender.com,https://www.yourdomain.com
-CSRF_TRUSTED_ORIGINS = env.list("CSRF_TRUSTED_ORIGINS", default=[])
+CSRF_TRUSTED_ORIGINS = env.list(
+    "CSRF_TRUSTED_ORIGINS",
+    default=[
+        "https://royal-oak-app.herokuapp.com",
+        "https://royal-oak-app-dfc55386b7fe.herokuapp.com",
+    ],
+)
 
 # -----------------------------
 # Applications
@@ -48,8 +60,7 @@ INSTALLED_APPS = [
 # -----------------------------
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
-    # WhiteNoise must come right after SecurityMiddleware
-    "whitenoise.middleware.WhiteNoiseMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",  # must be just after SecurityMiddleware
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -66,7 +77,7 @@ ROOT_URLCONF = "royaloak.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR / "templates"],  # create 'templates/' folder if not present
+        "DIRS": [BASE_DIR / "templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -85,10 +96,8 @@ WSGI_APPLICATION = "royaloak.wsgi.application"
 # -----------------------------
 # Database
 # -----------------------------
-# Uses DATABASE_URL if provided (e.g. Postgres in production),
-# falls back to local SQLite for development.
-# Example .env for Postgres:
-# DATABASE_URL=postgres://USER:PASSWORD@HOST:PORT/DBNAME
+# On Heroku: uses DATABASE_URL (Postgres via Heroku Postgres add-on)
+# Locally: falls back to SQLite db.sqlite3
 DATABASES = {
     "default": dj_database_url.config(
         default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
@@ -96,7 +105,6 @@ DATABASES = {
         conn_health_checks=True,
     )
 }
-
 
 # -----------------------------
 # Password validation
@@ -121,7 +129,7 @@ USE_TZ = True
 # -----------------------------
 # Static files (CSS, JS, Images)
 # -----------------------------
-STATIC_URL = "static/"
+STATIC_URL = "/static/"
 
 STATICFILES_DIRS = [
     BASE_DIR / "static",
@@ -129,29 +137,31 @@ STATICFILES_DIRS = [
 
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
-# WhiteNoise: serve compressed, versioned static files in production
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 # -----------------------------
-# Auth redirects (adjust names to your URL names)
+# Authentication redirects
 # -----------------------------
 LOGIN_URL = "login"
 LOGIN_REDIRECT_URL = "home"
 LOGOUT_REDIRECT_URL = "home"
 
 # -----------------------------
-# Email (notifications)
+# Email
 # -----------------------------
-# Dev default: print emails to console
 EMAIL_BACKEND = env(
-    "EMAIL_BACKEND", default="django.core.mail.backends.console.EmailBackend"
+    "EMAIL_BACKEND",
+    default="django.core.mail.backends.console.EmailBackend",
 )
 EMAIL_HOST = env("EMAIL_HOST", default="")
 EMAIL_PORT = env.int("EMAIL_PORT", default=587)
 EMAIL_HOST_USER = env("EMAIL_HOST_USER", default="")
 EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD", default="")
 EMAIL_USE_TLS = env.bool("EMAIL_USE_TLS", default=True)
-DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL", default="no-reply@royaloak.local")
+DEFAULT_FROM_EMAIL = env(
+    "DEFAULT_FROM_EMAIL",
+    default="no-reply@royaloak.local",
+)
 
 # -----------------------------
 # Security hardening for production
@@ -160,30 +170,12 @@ if not DEBUG:
     SECURE_SSL_REDIRECT = env.bool("SECURE_SSL_REDIRECT", default=True)
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
-    SECURE_HSTS_SECONDS = env.int(
-        "SECURE_HSTS_SECONDS",
-        default=31536000,  # 1 year
-    )
+    SECURE_HSTS_SECONDS = env.int("SECURE_HSTS_SECONDS", default=31536000)
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
     SECURE_HSTS_PRELOAD = True
     SECURE_REFERRER_POLICY = "strict-origin"
-    # Optionally set:
-    # X_FRAME_OPTIONS = "DENY"
 
 # -----------------------------
 # Default primary key field type
 # -----------------------------
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-
-# Redirect unauthenticated users to Django admin login
-LOGIN_URL = "/admin/login/"
-
-# Authentication redirects
-LOGIN_URL = "login"
-LOGIN_REDIRECT_URL = "home"
-LOGOUT_REDIRECT_URL = "home"
-
-# Authentication settings
-LOGIN_URL = "login"
-LOGIN_REDIRECT_URL = "home"
-LOGOUT_REDIRECT_URL = "home"
