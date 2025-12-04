@@ -4,8 +4,8 @@ Django settings for royaloak project.
 
 import os
 from pathlib import Path
+import dj_database_url
 
-import environ
 
 # -----------------------------
 # Paths & environment
@@ -89,7 +89,14 @@ WSGI_APPLICATION = "royaloak.wsgi.application"
 # falls back to local SQLite for development.
 # Example .env for Postgres:
 # DATABASE_URL=postgres://USER:PASSWORD@HOST:PORT/DBNAME
-DATABASES = {"default": env.db(default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}")}
+DATABASES = {
+    "default": dj_database_url.config(
+        default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
+        conn_max_age=600,
+        conn_health_checks=True,
+    )
+}
+
 
 # -----------------------------
 # Password validation
