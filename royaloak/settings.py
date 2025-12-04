@@ -19,7 +19,7 @@ environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
 # -----------------------------
 # Core settings
 # -----------------------------
-SECRET_KEY = change - me - to - a - long - random - string
+SECRET_KEY = "change-me-to-a-long-random-string"
 
 
 DEBUG = env.bool("DEBUG", default=False)
