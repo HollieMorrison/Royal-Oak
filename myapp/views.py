@@ -120,3 +120,18 @@ def signup(request):
     else:
         form = RoyalOakUserCreationForm()
     return render(request, "registration/signup.html", {"form": form})
+
+from django.shortcuts import render, redirect
+from .forms import RoyalOakUserCreationForm
+
+
+def signup(request):
+    if request.method == "POST":
+        form = RoyalOakUserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            # After successful signup, send user to login page
+            return redirect('/accounts/login/')
+    else:
+        form = RoyalOakUserCreationForm()
+    return render(request, "registration/signup.html", {"form": form})
