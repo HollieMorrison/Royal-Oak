@@ -104,3 +104,19 @@ def account(request):
     Simple account page for logged-in users with a logout option.
     """
     return render(request, "account.html")
+
+from django.shortcuts import render, redirect
+from django.contrib.auth import login
+from .forms import RoyalOakUserCreationForm
+
+
+def signup(request):
+    if request.method == "POST":
+        form = RoyalOakUserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('/')  # change "home" if your homepage url name is different
+    else:
+        form = RoyalOakUserCreationForm()
+    return render(request, "registration/signup.html", {"form": form})
