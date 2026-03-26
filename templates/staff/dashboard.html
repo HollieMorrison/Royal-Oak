@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>All Bookings</h2>
+<ul>
+{% for booking in bookings %}
+<li>{{ booking.date }} {{ booking.time }} - {{ booking.table }} - {{ booking.party_size }}</li>
+{% endfor %}
+</ul>
+{% endblock %}

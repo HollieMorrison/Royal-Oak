@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+<main>
+  <h2>Cancel this booking?</h2>
+  <p>{{ object.date }} at {{ object.time }} — {{ object.table }}</p>
+  <form method="post">{% csrf_token %}
+    <button type="submit">Confirm Cancel</button>
+    <a href="{% url 'my_bookings' %}">Back</a>
+  </form>
+</main>
+{% endblock %}
