@@ -321,8 +321,6 @@ Tutorials on Django forms, authentication, and deployment
 
 Content
 
-Menu items and wording adapted for a fictional restaurant.
-
 Media
 
 Images from free stock sites.
