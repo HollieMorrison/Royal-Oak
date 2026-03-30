@@ -1,91 +1,23 @@
-{% load static %}
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>The Royal Oak – My bookings</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="{% static 'css/styles.css' %}" rel="stylesheet">
-  </head>
-  <body>
-    <div class="site-wrapper">
-      <header class="site-header">
-        <div class="brand">
-          <div class="brand-badge">RO</div>
-          <div>
-            <div class="brand-text-title">The Royal Oak</div>
-            <div class="brand-text-subtitle">FINE ALES · SEASONAL DINING</div>
-          </div>
-        </div>
+{% extends "base.html" %}
 
-        <nav class="nav-links">
-          <a href="{% url 'home' %}" class="nav-link">Home</a>
-          <a href="{% url 'menu' %}" class="nav-link">Menu</a>
-          <a href="{% url 'my_bookings' %}" class="nav-link nav-link--primary">My bookings</a>
-          {% if user.is_staff %}
-            <a href="{% url 'staff_dashboard' %}" class="nav-link">Staff</a>
-          {% endif %}
-          {% if user.is_authenticated %}
-            <a href="{% url 'account' %}" class="nav-link">Account</a>
-          {% else %}
-            <a href="{% url 'login' %}" class="nav-link">Login</a>
-            <a href="{% url 'signup' %}" class="nav-link">Sign up</a>
-          {% endif %}
-        </nav>
-      </header>
+{% block content %}
+<section class="page-section">
+    <h1>My Bookings</h1>
 
-      {% if messages %}
-      <ul class="flash-messages" aria-live="polite">
-        {% for message in messages %}
-          <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
-            {{ message }}
-          </li>
-        {% endfor %}
-      </ul>
-      {% endif %}
-
-      <main class="booking-main-wrapper">
-        <section class="booking-main-card">
-          <div class="hero-pill">
-            <span class="hero-pill-dot"></span>
-            <span>My bookings</span>
-          </div>
-
-          <h1>Your reservations</h1>
-
-          <p class="booking-intro">
-            Here are the reservations linked to your account. You can edit or
-            cancel upcoming bookings from this page.
-          </p>
-
-          {% if bookings %}
-            <ul class="hero-meta" style="flex-direction: column; align-items: flex-start;">
-              {% for booking in bookings %}
+    {% if bookings %}
+        <ul>
+            {% for booking in bookings %}
                 <li>
-                  <strong>{{ booking.date }} at {{ booking.time }}</strong>
-                  — {{ booking.table|default:"Table" }}
-                  · {{ booking.party_size }} guests
-                  <br>
-                  <a href="{% url 'booking_edit' booking.pk %}">Edit</a> ·
-                  <a href="{% url 'booking_delete' booking.pk %}">Cancel</a>
+                    {{ booking.date }} at {{ booking.time }} |
+                    {{ booking.table }} |
+                    Party size: {{ booking.party_size }}
+                    <a href="{% url 'booking_edit' booking.pk %}">Edit</a>
+                    <a href="{% url 'booking_delete' booking.pk %}">Delete</a>
                 </li>
-              {% endfor %}
-            </ul>
-          {% else %}
-            <p class="booking-intro">
-              You don't have any bookings yet.
-            </p>
-          {% endif %}
-
-          <p class="booking-back-link">
-            <a href="{% url 'reserve' %}">&rarr; Make a new booking</a>
-          </p>
-        </section>
-      </main>
-    </div>
-
-    <footer class="site-footer">
-      &copy; {% now "Y" %} The Royal Oak. Reservations managed securely through this system.
-    </footer>
-  </body>
-</html>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>You have no bookings yet.</p>
+    {% endif %}
+</section>
+{% endblock %}
