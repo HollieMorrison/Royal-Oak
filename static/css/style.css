@@ -38,6 +38,12 @@ body {
     display: flex;
     align-items: center;
     gap: 1rem;
+    padding-left: 0;
+    margin: 0;
+}
+
+.nav-links li {
+    list-style: none;
 }
 
 .nav-links a {
@@ -52,6 +58,9 @@ body {
 
 .logout-form {
     margin: 0;
+    padding: 0;
+    background: transparent;
+    max-width: none;
 }
 
 .logout-button {
@@ -60,6 +69,9 @@ body {
     color: #ffffff;
     cursor: pointer;
     font: inherit;
+    width: auto;
+    padding: 0;
+    margin: 0;
 }
 
 .logout-button:hover {
@@ -121,14 +133,17 @@ body {
     margin-bottom: 0.75rem;
 }
 
-form {
+.page-content form {
     background: rgba(255, 255, 255, 0.06);
     padding: 1.5rem;
     border-radius: 12px;
     max-width: 600px;
 }
 
-input, select, textarea, button {
+.page-content input,
+.page-content select,
+.page-content textarea,
+.page-content button {
     width: 100%;
     padding: 0.8rem;
     margin-top: 0.35rem;
@@ -137,7 +152,7 @@ input, select, textarea, button {
     border: 1px solid #ccc;
 }
 
-button {
+.page-content button {
     background: #f4d27a;
     color: #1b1020;
     border: none;
@@ -145,10 +160,10 @@ button {
     cursor: pointer;
 }
 
-button:hover {
+.page-content button:hover {
     opacity: 0.9;
 }
 
-ul {
+.page-content ul {
     padding-left: 1.2rem;
 }
