@@ -167,3 +167,68 @@ body {
 .page-content ul {
     padding-left: 1.2rem;
 }
+
+/* Page title */
+.page-title {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    color: #f4d27a;
+}
+
+/* Booking list */
+.booking-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* Card */
+.booking-card {
+    background: rgba(255, 255, 255, 0.06);
+    padding: 1.5rem;
+    border-radius: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Booking text */
+.booking-date {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+/* Actions */
+.booking-actions {
+    display: flex;
+    gap: 0.6rem;
+}
+
+/* Buttons */
+.btn-small {
+    background: #f4d27a;
+    color: #1b1020;
+    padding: 0.5rem 0.8rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+.btn-small:hover {
+    opacity: 0.9;
+}
+
+.btn-small.danger {
+    background: #c94b4b;
+    color: white;
+}
+
+/* Navbar spacing improvement */
+.nav-links {
+    gap: 2rem;
+}
+
+.nav-links a {
+    padding: 0.4rem 0.6rem;
+}
