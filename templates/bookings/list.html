@@ -5,13 +5,14 @@
     <h1>My Bookings</h1>
 
     {% if bookings %}
-        <ul>
+        <ul class="booking-list">
             {% for booking in bookings %}
                 <li>
-                    {{ booking.date }} at {{ booking.time }} |
-                    {{ booking.table }} |
-                    Party size: {{ booking.party_size }}
+                    <strong>{{ booking.date }}</strong> at {{ booking.time }}<br>
+                    Table: {{ booking.table }}<br>
+                    Party size: {{ booking.party_size }}<br>
                     <a href="{% url 'booking_edit' booking.pk %}">Edit</a>
+                    |
                     <a href="{% url 'booking_delete' booking.pk %}">Delete</a>
                 </li>
             {% endfor %}
