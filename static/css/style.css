@@ -232,3 +232,122 @@ body {
 .nav-links a {
     padding: 0.4rem 0.6rem;
 }
+
+/* =========================
+   Mobile responsiveness
+   ========================= */
+
+@media (max-width: 900px) {
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .nav-links {
+        flex-wrap: wrap;
+        gap: 1rem;
+        width: 100%;
+    }
+
+    .page-content {
+        padding: 2rem 1.25rem;
+    }
+
+    .hero h1,
+    .page-title {
+        font-size: 2.4rem;
+    }
+
+    .hero p {
+        font-size: 1rem;
+    }
+
+    .booking-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .booking-actions {
+        width: 100%;
+        flex-wrap: wrap;
+    }
+}
+
+@media (max-width: 600px) {
+    .site-header {
+        padding: 1rem;
+    }
+
+    .navbar {
+        gap: 0.75rem;
+    }
+
+    .logo {
+        font-size: 1.5rem;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+
+    .nav-links a {
+        padding: 0.25rem 0;
+    }
+
+    .page-content {
+        padding: 1.5rem 1rem;
+    }
+
+    .hero {
+        min-height: auto;
+    }
+
+    .hero h1,
+    .page-title {
+        font-size: 2rem;
+        line-height: 1.2;
+    }
+
+    .hero p {
+        font-size: 0.95rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .btn,
+    .btn-small,
+    .page-content button {
+        width: 100%;
+        text-align: center;
+    }
+
+    .page-content form {
+        padding: 1rem;
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .page-content input,
+    .page-content select,
+    .page-content textarea,
+    .page-content button {
+        font-size: 1rem;
+    }
+
+    .booking-card {
+        padding: 1rem;
+    }
+
+    .booking-actions {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .booking-actions a {
+        width: 100%;
+        text-align: center;
+    }
+}
