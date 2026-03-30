@@ -6,13 +6,15 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", views.home, name="home"),
     path("menu/", views.menu, name="menu"),
-    path("accounts/signup/", views.signup, name="signup"),
-    path("accounts/", include("django.contrib.auth.urls")),
 
-    path("reserve/", views.BookingCreateView.as_view(), name="reserve"),
-    path("my-bookings/", views.MyBookingsView.as_view(), name="my_bookings"),
-    path("booking/<int:pk>/edit/", views.BookingUpdateView.as_view(), name="booking_edit"),
-    path("booking/<int:pk>/delete/", views.BookingDeleteView.as_view(), name="booking_delete"),
+    path("accounts/", include("django.contrib.auth.urls")),
+    path("accounts/signup/", views.signup, name="signup"),
+
+    path("reserve/", views.booking_create, name="reserve"),
+    path("my-bookings/", views.my_bookings, name="my_bookings"),
+    path("booking/<int:pk>/edit/", views.booking_edit, name="booking_edit"),
+    path("booking/<int:pk>/delete/", views.booking_delete, name="booking_delete"),
 
     path("staff/dashboard/", views.staff_dashboard, name="staff_dashboard"),
+    path("account/", views.account, name="account"),
 ]
