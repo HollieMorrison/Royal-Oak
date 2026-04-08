@@ -95,6 +95,7 @@ User stories were broken down into tasks and implemented feature by feature.
 ## Testing
 
 ### Manual Testing
+Manual testing was carried out across all core features to ensure functionality, usability, and responsiveness.
 
 - Home page loads correctly
 ![Home Page](assets/readme/testing/home.png)
@@ -135,7 +136,7 @@ User stories were broken down into tasks and implemented feature by feature.
 ![Mobile](assets/readme/testing/responsive-mobile.png)
 ![Tablet](assets/readme/testing/responsive-ipad.png)
 
--Admin Panel 
+- Admin Panel 
 ![Admin](assets/readme/testing/admin-access.png)
 
 ### Automated Testing
@@ -153,7 +154,7 @@ The project includes Django tests for:
 ![Pycodestyle](assets/readme/validation/pycodestyle.png)
 
 ## Validation
-Add screenshots or notes for:
+
 - HTML validation
 ![HTML Results](assets/readme/validation/html.png)
 
