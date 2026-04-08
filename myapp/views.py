@@ -46,7 +46,9 @@ def booking_create(request):
 
 @login_required
 def my_bookings(request):
-    bookings = Booking.objects.filter(user=request.user).order_by("date", "time")
+    bookings = Booking.objects.filter(
+        user=request.user).order_by(
+        "date", "time")
     return render(request, "bookings/list.html", {"bookings": bookings})
 
 
@@ -77,7 +79,9 @@ def booking_delete(request, pk):
         messages.success(request, "Booking deleted successfully.")
         return redirect("my_bookings")
 
-    return render(request, "bookings/booking_confirm_delete.html", {"booking": booking})
+    return render(request,
+                  "bookings/booking_confirm_delete.html",
+                  {"booking": booking})
 
 
 def is_staff(user):

@@ -5,6 +5,7 @@ Royal Oak is a full-stack Django restaurant booking application for a traditiona
 ## Live Project
 - Live app: https://royal-oak-app-dfc55386b7fe.herokuapp.com/
 - Repository: https://github.com/HollieMorrison/Royal-Oak
+![Home Page](assets/readme/testing/home.png)
 
 ## Project Purpose
 The aim of this project is to provide a simple online booking system for a restaurant. It solves the problem of customers needing to phone or message the venue to make reservations, while also giving the site owner a central place to manage bookings.
@@ -24,6 +25,7 @@ The project was designed to be:
 ## Agile Planning
 Development was managed with GitHub Issues and milestone planning.
 User stories were broken down into tasks and implemented feature by feature.
+![Agile Planning Board](assets/readme/agile/agile-board.png)
 
 ### Example User Stories
 - As a visitor, I want to view the menu before booking.
@@ -31,6 +33,7 @@ User stories were broken down into tasks and implemented feature by feature.
 - As a logged-in user, I want to create a reservation.
 - As a logged-in user, I want to edit or cancel my reservation.
 - As staff, I want to review bookings in the admin area.
+![User Stories](assets/readme/agile/user-stories.png)
 
 ## Features
 
@@ -44,7 +47,6 @@ User stories were broken down into tasks and implemented feature by feature.
 - Booking edit functionality
 - Booking delete functionality
 - Django messages for booking feedback
-- Django admin management for staff
 
 ### Authentication and Permissions
 - Anonymous users can only access public pages
@@ -53,6 +55,8 @@ User stories were broken down into tasks and implemented feature by feature.
 - Staff users can manage bookings through the admin panel
 
 ## Data Model
+
+![Data Model](assets/readme/testing/Data-Model.png)
 
 ### Table model
 - `name`
@@ -91,21 +95,33 @@ User stories were broken down into tasks and implemented feature by feature.
 ## Testing
 
 ### Manual Testing
-Document your real test results here with screenshots.
-
-Suggested structure:
 
 - Home page loads correctly
+![Home Page](assets/readme/testing/home.png)
 - Menu page loads correctly
+![Menu Page](assets/readme/testing/menu.png)
 - Signup accepts valid details
+![Logged-in Account Page](assets/readme/testing/login-validation.png)
 - Login accepts valid details
-- Restricted pages redirect anonymous users
+![Login Accepts Valid Credentials](assets/readme/testing/login-accepts-valid-credentials.png)
 - Booking form creates a booking
+![Booking Form Screenshots](assets/readme/testing/booking.png)
+![Booking Success](assets/readme/testing/booking-success.png)
+![Booking Form](assets/readme/testing/booking-selections.png)
 - Booking form rejects invalid input
+![Booking Past Date error](assets/readme/testing/validation-error.png)
+![Booking Too Many Guests Error](assets/readme/testing/too-many-guests-validation-error.png)
 - My Bookings shows only the logged-in user's bookings
+![My Bookings Page](assets/readme/testing/my-bookings.png)
 - Edit updates the booking in the UI
+![When Clicking Edit Page](assets/readme/testing/edit-booking.png)
 - Delete removes the booking in the UI
+![Delete Booking Page](assets/readme/testing/delete-booking.png)
+![Delete Booking Confirmed](assets/readme/testing/booking-deleted-successfully.png)
 - Responsive layout works on desktop, tablet, and mobile
+![Admin Page](assets/readme/testing/admin-access.png)
+![Mobile](assets/readme/testing/responsive-mobile.png)
+![Tablet](assets/readme/testing/responsive-ipad.png)
 
 ### Automated Testing
 The project includes Django tests for:
@@ -116,14 +132,20 @@ The project includes Django tests for:
 - view own bookings
 - edit own booking
 - delete own booking
+![Pytest Results](assets/readme/validation/pytest.png)
+![Pycodestyle](assets/readme/validation/pycodestyle.png)
 
 ## Validation
 Add screenshots or notes for:
 - HTML validation
+![HTML Results](assets/readme/validation/html.png)
 - CSS validation
+![CSS Results](assets/readme/validation/css.png)
 - Python linting / PEP8
+![Python Results](assets/readme/validation/pytest.png)
+![Pycodestyle](assets/readme/validation/pycodestyle.png)
 - browser testing
-- responsiveness testing
+![Browser Testing](assets/readme/testing/browser-testing.png)
 
 ## Bugs
 ### Fixed Bugs
@@ -133,7 +155,7 @@ Add screenshots or notes for:
 - missing templates for reserve and bookings pages
 
 ### Remaining Bugs
-- Add any honest remaining issues here, or state that no known major bugs remain.
+- none that i can find currently.
 
 ## Deployment
 

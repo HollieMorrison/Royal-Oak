@@ -11,6 +11,12 @@ class TableAdmin(admin.ModelAdmin):
 
 @admin.register(Booking)
 class BookingAdmin(admin.ModelAdmin):
-    list_display = ("user", "date", "time", "table", "party_size", "created_at")
+    list_display = (
+        "user",
+        "date",
+        "time",
+        "table",
+        "party_size",
+        "created_at")
     list_filter = ("date", "time", "table")
     search_fields = ("user__username", "table__name")
