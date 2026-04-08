@@ -156,11 +156,14 @@ The project includes Django tests for:
 Add screenshots or notes for:
 - HTML validation
 ![HTML Results](assets/readme/validation/html.png)
+
 - CSS validation
 ![CSS Results](assets/readme/validation/css.png)
+
 - Python linting / PEP8
 ![Python Results](assets/readme/validation/pytest.png)
 ![Pycodestyle](assets/readme/validation/pycodestyle.png)
+
 - browser testing
 ![Browser Testing](assets/readme/testing/browser-testing.png)
 
