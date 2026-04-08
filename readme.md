@@ -98,30 +98,45 @@ User stories were broken down into tasks and implemented feature by feature.
 
 - Home page loads correctly
 ![Home Page](assets/readme/testing/home.png)
+
 - Menu page loads correctly
 ![Menu Page](assets/readme/testing/menu.png)
+
 - Signup accepts valid details
 ![Logged-in Account Page](assets/readme/testing/login-validation.png)
+
 - Login accepts valid details
 ![Login Accepts Valid Credentials](assets/readme/testing/login-accepts-valid-credentials.png)
+
 - Booking form creates a booking
 ![Booking Form Screenshots](assets/readme/testing/booking.png)
+
 ![Booking Success](assets/readme/testing/booking-success.png)
+
 ![Booking Form](assets/readme/testing/booking-selections.png)
+
 - Booking form rejects invalid input
 ![Booking Past Date error](assets/readme/testing/validation-error.png)
 ![Booking Too Many Guests Error](assets/readme/testing/too-many-guests-validation-error.png)
+
 - My Bookings shows only the logged-in user's bookings
 ![My Bookings Page](assets/readme/testing/my-bookings.png)
+
 - Edit updates the booking in the UI
 ![When Clicking Edit Page](assets/readme/testing/edit-booking.png)
+
 - Delete removes the booking in the UI
 ![Delete Booking Page](assets/readme/testing/delete-booking.png)
+
 ![Delete Booking Confirmed](assets/readme/testing/booking-deleted-successfully.png)
+
 - Responsive layout works on desktop, tablet, and mobile
-![Admin Page](assets/readme/testing/admin-access.png)
+
 ![Mobile](assets/readme/testing/responsive-mobile.png)
 ![Tablet](assets/readme/testing/responsive-ipad.png)
+
+-Admin Panel 
+![Admin](assets/readme/testing/admin-access.png)
 
 ### Automated Testing
 The project includes Django tests for:
