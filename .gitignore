@@ -10,3 +10,8 @@ myenv/
 .venv/
 __pycache__/
 *.pyc
+
+myenv/
+.venv/
+__pycache__/
+*.pyc
