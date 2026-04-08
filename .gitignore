@@ -5,3 +5,8 @@ __pycache__/
 *.log
 media/
 staticfiles/
+
+myenv/
+.venv/
+__pycache__/
+*.pyc
