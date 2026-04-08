@@ -132,6 +132,8 @@ The project includes Django tests for:
 - view own bookings
 - edit own booking
 - delete own booking
+
+
 ![Pytest Results](assets/readme/validation/pytest.png)
 ![Pycodestyle](assets/readme/validation/pycodestyle.png)
 
